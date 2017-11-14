@@ -21,15 +21,7 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="wwwroot\assets\pages\img\shop-slider\slide1\" />
-    <Folder Include="wwwroot\assets\pages\img\shop-slider\slide2\" />
-    <Folder Include="wwwroot\assets\pages\img\shop-slider\slide3\" />
-    <Folder Include="wwwroot\assets\pages\img\shop-slider\slide4\" />
     <Folder Include="wwwroot\data\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\WebAPI\WebAPI.csproj" />
   </ItemGroup>
 
 </Project>

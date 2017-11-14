@@ -12,7 +12,6 @@
         var vm = $scope;
 
         var productId = $routeParams.id;
-        vm.productDetail = vm.product;
 
         activate();
 
@@ -21,13 +20,18 @@
         }
 
         function getProductDetail() {
-            HomeService.getProductDetail(productId)
-                .then(function (product) {
-                    vm.productDetail = product;
-                })
-                .catch(function (err) {
-                    console.log(err);
-                });
+            if (productId != null) {
+                HomeService.getProductDetail(productId)
+                    .then(function (product) {
+                        vm.productDetail = product;
+                    })
+                    .catch(function (err) {
+                        console.log(err);
+                    });
+            } else {
+                vm.productDetail = vm.product;
+            }
+            
         }
     }
 })();

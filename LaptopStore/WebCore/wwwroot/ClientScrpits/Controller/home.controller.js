@@ -5,16 +5,22 @@
         .module('laptopStoreApp')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$location', 'HomeService', '$scope', '$uibModal'];
+    HomeController.$inject = ['$location', 'HomeService', '$scope', '$uibModal', '$q', '$rootScope'];
 
-    function HomeController($location, HomeService, $scope, $uibModal) {
+    function HomeController($location, HomeService, $scope, $uibModal, $q, $broadcast, $rootScope) {
         /* jshint validthis:true */
         var vm = $scope;
+        var rootScope = $rootScope;
 
         vm.latestProducts = null;
         vm.products = null;
         vm.filter = {};
         vm.numOfProducts = 0;
+        vm.priceSlider = {
+            options: {
+                step: 1000000
+            }
+        };
 
         vm.openProductDetail = openProductDetail;
         vm.getProductByCategory = getProductByCategory;
@@ -26,6 +32,7 @@
             getFiveLatestProducts();
             getAllCategories();
             countProducts();
+            getMinMaxPriceOfProduct();
 
         }
 
@@ -92,6 +99,34 @@
                 .catch(function (err) {
                     console.log(err);
                 });
+        }
+
+        function getMinMaxPriceOfProduct() {
+            var getMinValue = function () {
+                HomeService.getMinPriceOfProduct()
+                    .then(function (minPrice) {
+                        vm.priceSlider.minValue = minPrice;
+                        vm.priceSlider.options.floor = minPrice;
+                        getMaxValue();
+                    })
+                    .catch(function (err) {
+                        console.log(err);
+                    });
+            };
+
+            var getMaxValue = function () {
+                HomeService.getMaxPriceOfProduct()
+                    .then(function (maxPrice) {
+                        vm.priceSlider.maxValue = maxPrice;
+                        vm.priceSlider.options.ceil = maxPrice;
+                        rootScope.$broadcast('rzSliderForceRender');
+                    })
+                    .catch(function (err) {
+                        console.log(err);
+                    });
+            };
+
+            getMinValue();
         }
     }
 })();

@@ -7,7 +7,8 @@
         'ngSanitize',
         'ui.bootstrap',
         'angularUtils.directives.dirPagination',
-        'fancyboxplus'
+        'fancyboxplus',
+        'rzModule'
 
         // Custom modules 
 

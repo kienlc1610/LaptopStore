@@ -162,5 +162,16 @@ namespace WebAPI.Controllers
         {
             return _context.Product.Any(e => e.ProductId == id);
         }
+        [Route("Price/Max")]
+        public async Task<double> GetMaxPriceOfAllProducts()
+        {
+            return await _context.Product.MaxAsync(p => p.Price);
+        }
+
+        [Route("Price/Min")]
+        public async Task<double> GetMinPriceOfAllProducts()
+        {
+            return await _context.Product.MinAsync(p => p.Price);
+        }
     }
 }

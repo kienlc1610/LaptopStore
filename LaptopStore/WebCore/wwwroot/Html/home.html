@@ -48,27 +48,19 @@
             </div>
             <h3>Price</h3>
             <p>
-                <label for="amount">Range:</label>
-                <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
+                <label>Range:</label>
+                <rzslider rz-slider-model="priceSlider.minValue"
+                          rz-slider-high="priceSlider.maxValue"
+                          rz-slider-options="priceSlider.options" ></rzslider>
             </p>
             <div id="slider-range"></div>
         </div>
         <div class="sidebar-products clearfix">
-            <h2>Bestsellers</h2>
-            <div class="item">
-                <a href="shop-item.html"><img src="assets/pages/img/products/k1.jpg" alt="Some Shoes in Animal with Cut Out"></a>
-                <h3><a href="shop-item.html">Some Shoes in Animal with Cut Out</a></h3>
-                <div class="price">$31.00</div>
-            </div>
-            <div class="item">
-                <a href="shop-item.html"><img src="assets/pages/img/products/k4.jpg" alt="Some Shoes in Animal with Cut Out"></a>
-                <h3><a href="shop-item.html">Some Shoes in Animal with Cut Out</a></h3>
-                <div class="price">$23.00</div>
-            </div>
-            <div class="item">
-                <a href="shop-item.html"><img src="assets/pages/img/products/k3.jpg" alt="Some Shoes in Animal with Cut Out"></a>
-                <h3><a href="shop-item.html">Some Shoes in Animal with Cut Out</a></h3>
-                <div class="price">$86.00</div>
+            <h2>New Laptop</h2>
+            <div class="item " ng-repeat="latestProduct in latestProducts">
+                <a href="/#!/products/{{latestProduct.productId}}"><img src="img/products/{{latestProduct.image}}" alt="Some Shoes in Animal with Cut Out"></a>
+                <h3><a href="/#!/products/{{latestProduct.productId}}">{{latestProduct.name}}</a></h3>
+                <div class="price">{{latestProduct.price | currency:"VND" : 0 }}</div>
             </div>
         </div>
     </div>
@@ -109,14 +101,14 @@
             <div dir-paginate="product in products|itemsPerPage:6" class="col-md-4 col-sm-6 col-xs-12">
                 <div class="product-item">
                     <div class="pi-img-wrapper">
-                        <img src="/img/{{product.image}}" class="img-responsive" alt="Berry Lace Dress">
+                        <img src="/img/products/{{product.image}}" class="img-responsive" alt="{{product.name}}">
                         <div>
                             <a fancyboxable="{padding:30}" id="image-{{productId}}"  data-ng-href="/img/{{product.image}}" class="btn btn-default">Zoom</a>
                             <a class="btn btn-default" ng-click="openProductDetail(product)">View</a>
                         </div>
                     </div>
-                    <h3><a href="shop-item.html">{{product.name}}</a></h3>
-                    <div class="pi-price">{{product.price | currency:"VND$" : 0 }}</div>
+                    <h3><a href="/#!/products/{{product.productId}}">{{product.name}}</a></h3>
+                    <div class="pi-price">{{product.price | currency:"VND" : 0 }}</div>
                     <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
                 </div>
             </div>

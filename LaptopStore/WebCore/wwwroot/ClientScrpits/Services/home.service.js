@@ -14,6 +14,8 @@
             getAllCategories: getAllCategories,
             countProducts: countProducts,
             getProductDetail: getProductDetail,
+            getMinPriceOfProduct: getMinPriceOfProduct,
+            getMaxPriceOfProduct: getMaxPriceOfProduct
         };
 
         return service;
@@ -110,6 +112,34 @@
 
             return deferred.promise;
 
+        }
+
+        function getMaxPriceOfProduct() {
+            var deferred = $q.defer();
+
+            $http.get('http://localhost:49595/api/Products/Price/Max')
+                .then(function (res) {
+                    deferred.resolve(res.data);
+                })
+                .catch(function (err) {
+                    deferred.reject(err);
+                });
+
+            return deferred.promise;
+        }
+
+        function getMinPriceOfProduct() {
+            var deferred = $q.defer();
+
+            $http.get('http://localhost:49595/api/Products/Price/Min')
+                .then(function (res) {
+                    deferred.resolve(res.data);
+                })
+                .catch(function (err) {
+                    deferred.reject(err);
+                });
+
+            return deferred.promise;
         }
     }
 })();
