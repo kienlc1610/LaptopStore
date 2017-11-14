@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewData["Title"] = "Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Product List</h2>
+
+<form asp-controller="Products" asp-action="Index" method="get">
+    <p>
+        <a asp-action="Create" id="insert" style="font-size:14pt;">Create New</a>
+    </p>
+    <table class="table" border="1" cellpadding="10">
+        <thead class="table-bordered" style="background-color:#00ff21;">
+            <tr>
+                <th>
+                    Product ID:
+                </th>
+                <th>
+                    Category ID:
+                </th>
+                <th>
+                    Product Name:
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Image:
+                </th>
+                <th>
+                    Description:
+                </th>
+                <th>
+                    Status:
+                </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="tableProduct"></tbody>
+    </table>
+    <br />
+    <div id="msg"></div>
+</form>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+</script>
+
+<script>
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:49595/api/Products",
+            //dataType: "json",
+            //contentType: "application/json",
+            success: function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var item = data[i];
+                    $("#tableProduct").append('<tr>\
+                        <td>\
+                        <div id="productid">'+ item.productid + '</div>\
+                        </td>\
+                        <td>\
+                        <div id="cateid">'+ item.cateid + '</div>\
+                        </td>\
+                        <td>\
+                        <div id="name">'+ item.name + '</div>\
+                        </td>\
+                        <td>\
+                        <div id="price">'+ item.price + '</div>\
+                        </td>\
+                        <td>\
+                        <div id="image">'+ item.image + '</div>\
+                        </td>\
+                        <td>\
+                        <div id="description">'+ item.description + '</div>\
+                        </td>\
+                        <td>\
+                        <div id="status">'+ item.status + '</div>\
+                        </td>\
+                        <td style="font-size:12pt;">\
+                        <a onclick="Details('+ item.productid + ')" id="detail">Details</a> |\
+                    <a onclick="Update('+ item.productid + ')" id="update">Update</a> |\
+                    <a onclick="Delete('+ item.productid + ')" id="delete">Delete</a>\
+                        </td>\
+                        </tr>');
+                }
+            },
+            error: function (a, b, c) {
+                console.log(a);
+                console.log(b);
+                console.log(c);
+            }
+        });
+        $("#productid").change(function () {
+            var options = {};
+            options.url = "http://localhost:49595/api/Products/{id}" + $("#ProductID").val();
+            options.type = "GET";
+            options.dataType = "json";
+            options.success = function (data) {
+                $("#cateid").val(data.CateId);
+                $("#name").val(data.Name);
+                $("#price").val(data.Price);
+                $("#image").val(data.Image);
+                $("#description").val(data.Description);
+                $("#status").val(data.Status);
+            };
+            options.error = function () {
+                $("#msg").html("Error while calling the Web API!");
+            };
+            $.ajax(options);
+        });
+    });
+</script>
+

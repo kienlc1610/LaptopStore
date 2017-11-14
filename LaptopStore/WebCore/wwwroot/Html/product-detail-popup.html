@@ -1,0 +1,41 @@
+﻿<!-- BEGIN CONTENT -->
+<div class="col-md-9 col-sm-7">
+    <div class="product-page">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div class="product-main-image">
+                    <img src="/img/{{productDetail.image}}" alt="" class="img-responsive">
+                </div>
+                <div class="product-other-images">
+                    <!--<a href="assets/pages/img/products/model3.jpg" class="fancybox-button" rel="photos-lib"><img alt="Berry Lace Dress" src="assets/pages/img/products/model3.jpg"></a>
+                    <a href="assets/pages/img/products/model4.jpg" class="fancybox-button" rel="photos-lib"><img alt="Berry Lace Dress" src="assets/pages/img/products/model4.jpg"></a>
+                    <a href="assets/pages/img/products/model5.jpg" class="fancybox-button" rel="photos-lib"><img alt="Berry Lace Dress" src="assets/pages/img/products/model5.jpg"></a>-->
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <h1>{{productDetail.name}}</h1>
+                <div class="price-availability-block clearfix">
+                    <div class="price">
+                        <strong style="font-size: 160%" class="input-sm">{{productDetail.price | currency:"VND$" : 0}}</strong>
+                    </div>
+                    <div class="availability">
+                        Availability: <strong>{{productDetail.status}}</strong>
+                    </div>
+                </div>
+                <div class="description">
+                    <p>
+                        {{productDetail.description}}
+                    </p>
+                </div>
+                
+                <div class="product-page-cart">
+                    <div class="product-quantity">
+                        <input id="product-quantity" type="number" value="1" min="1" class="form-control input-sm">
+                    </div>
+                    <button class="btn btn-primary" type="submit">Add to cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END CONTENT -->

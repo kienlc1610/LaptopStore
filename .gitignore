@@ -5,7 +5,18 @@ bin-release/
 
 # Other files and folders
 .settings/
+.vs/
 
 # Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
 # should NOT be excluded as they contain compiler settings and other important
 # information for Eclipse / Flash Builder.
+
+LaptopStore/WebAPI/obj/
+
+LaptopStore/WebAPI/wwwroot/lib/
+
+LaptopStore/WebCore/node_modules/
+
+LaptopStore/WebCore/obj/
+
+LaptopStore/WebCore/wwwroot/lib/

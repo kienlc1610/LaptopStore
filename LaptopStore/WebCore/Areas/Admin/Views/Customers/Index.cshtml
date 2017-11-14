@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewData["Title"] = "Customers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Customer List</h2>
+
+<form asp-controller="Customers" asp-action="Index" method="get">
+    <p>
+        <a asp-action="Create" id="insert" style="font-size:14pt;">Create New</a>
+    </p>
+    <table class="table" border="1" cellpadding="10">
+        <thead class="table-bordered" style="background-color:#00ff21;">
+            <tr>
+                <th>
+                    Customer ID:
+                </th>
+                <th>
+                    Password:
+                </th>
+                <th>
+                    Fullname:
+                </th>
+                <th>
+                    Address:
+                </th>
+                <th>
+                    Activated:
+                </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="tableCustomer"></tbody>
+    </table>
+    <br />
+    <div id="msg"></div>
+</form>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+</script>
+
+<script>
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:49595/api/Customers",
+            //dataType: "json",
+            //contentType: "application/json",
+            success: function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var item = data[i];
+                    $("#tableCustomer").append('<tr>\
+                        <td>\
+                        <div id="customerid">'+ item.customerid + '</div>\
+                        </td>\
+                        <td>\
+                        <div id="password">'+ item.password + '</div>\
+                        </td>\
+                        <td>\
+                        <div id="fullname">'+ item.fullname + '</div>\
+                        </td>\
+                        <td>\
+                        <div id="address">'+ item.address + '</div>\
+                        </td>\
+                        <td>\
+                        <div id="activated">'+ item.activated + '</div>\
+                        </td>\
+                        <td style="font-size:12pt;">\
+                        <a onclick="Details('+ item.customerid + ')" id="detail">Details</a> |\
+                    <a onclick="Update('+ item.customerid + ')" id="update">Update</a> |\
+                    <a onclick="Delete('+ item.customerid + ')" id="delete">Delete</a>\
+                        </td>\
+                        </tr>');
+                }
+            },
+            error: function (a, b, c) {
+                console.log(a);
+                console.log(b);
+                console.log(c);
+            }
+        });
+        $("#customerid").change(function () {
+            var options = {};
+            options.url = "http://localhost:49595/api/Customers/{id}" + $("#CustomerID").val();
+            options.type = "GET";
+            options.dataType = "json";
+            options.success = function (data) {
+                $("#password").val(data.Password);
+                $("#fullname").val(data.FullName);
+                $("#address").val(data.Address);
+                $("#activated").val(data.Activated);
+            };
+            options.error = function () {
+                $("#msg").html("Error while calling the Web API!");
+            };
+            $.ajax(options);
+        });
+    });
+</script>
+
+
+
+
+
