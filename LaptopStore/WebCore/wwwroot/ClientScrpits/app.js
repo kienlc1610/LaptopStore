@@ -8,7 +8,8 @@
         'ui.bootstrap',
         'angularUtils.directives.dirPagination',
         'fancyboxplus',
-        'rzModule'
+        'rzModule',
+        'ngStorage'
 
         // Custom modules 
 

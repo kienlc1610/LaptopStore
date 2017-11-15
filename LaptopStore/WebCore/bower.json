@@ -14,7 +14,8 @@
     "angular-fancybox-plus": "1.0.3",
     "angularUtils-pagination": "angular-utils-pagination#v0.11.1",
     "font-awesome": "Font-Awesome#v4.7.0",
-    "angularjs-slider": "v0.1.0"
+    "angularjs-slider": "v0.1.0",
+    "ngstorage": "^0.3.11"
   },
   "resolutions": {
     "angular": "v1.6.7-build.5496+sha.181ac0b",

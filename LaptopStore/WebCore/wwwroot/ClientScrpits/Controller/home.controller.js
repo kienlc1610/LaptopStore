@@ -5,13 +5,25 @@
         .module('laptopStoreApp')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$location', 'HomeService', '$scope', '$uibModal', '$q', '$rootScope'];
+    HomeController.$inject = [
+        '$location',
+        'HomeService',
+        '$scope',
+        '$uibModal',
+        '$q',
+        '$rootScope',
+        'NgStorageService',
+        '$filter'
+    ];
 
-    function HomeController($location, HomeService, $scope, $uibModal, $q, $broadcast, $rootScope) {
+    function HomeController($location, HomeService, $scope, $uibModal, $q, $rootScope, ngStorageService, $filter) {
         /* jshint validthis:true */
         var vm = $scope;
         var rootScope = $rootScope;
 
+        rootScope.carts = {
+            
+        };
         vm.latestProducts = null;
         vm.products = null;
         vm.filter = {};
@@ -21,13 +33,36 @@
                 step: 1000000
             }
         };
-
+        rootScope.removeProductFromCart = removeProductFromCart;
         vm.openProductDetail = openProductDetail;
+        vm.addCart = addCart;
         vm.getProductByCategory = getProductByCategory;
 
         activate();
+            
+        rootScope.$watchCollection('carts.products', function (newValue, oldValue) {
+            var total = 0;
+
+            if (!angular.isUndefined(newValue) || newValue.length !== 0 || newValue !== null) {
+
+                newValue.forEach(function (product) {
+                    total += (product.price * product.quantity);
+                });
+
+                rootScope.carts.total = total;
+            } else {
+                rootScope.carts.total = total;
+            }
+        }, true);
 
         function activate() {
+            var foundCarts = ngStorageService.getSessionStorage('carts');
+            if (!angular.isUndefined(foundCarts)) {
+                rootScope.carts.products = foundCarts
+            } else {
+                rootScope.carts.products = [];
+            }
+
             getAllProducts();
             getFiveLatestProducts();
             getAllCategories();
@@ -119,7 +154,7 @@
                     .then(function (maxPrice) {
                         vm.priceSlider.maxValue = maxPrice;
                         vm.priceSlider.options.ceil = maxPrice;
-                        rootScope.$broadcast('rzSliderForceRender');
+                        vm.$broadcast('rzSliderForceRender');
                     })
                     .catch(function (err) {
                         console.log(err);
@@ -127,6 +162,53 @@
             };
 
             getMinValue();
+        }
+
+        function addCart(product) {
+            var productInCart = ngStorageService.getSessionStorage('carts');
+
+            if (angular.isUndefined(productInCart)) {
+                product.quantity = 1;
+                productInCart = [product]
+                rootScope.carts.products.push(product);
+            } else {
+                if (productInCart.length === 0) {
+                    product.quantity = 1;
+                    productInCart.push(product);
+                    rootScope.carts.products.push(product);
+                } else {
+                    var filter = $filter('filter')(productInCart, { productId: product.productId });
+                    if (filter && filter.length !== 0) {
+                        productInCart.forEach(function (p) {
+                            if (p.productId === product.productId) {
+                                p.quantity++;
+                                rootScope.carts.total += (p.quantity * p.price);
+                            }
+                        });
+                    } else {
+                        product.quantity = 1;
+                        productInCart.push(product);
+                        rootScope.carts.products.push(product);
+                    }
+                }
+                
+            }
+            ngStorageService.setSessionStorage('carts', productInCart);
+            }
+
+        function removeProductFromCart(product) {
+            var productsInCart = ngStorageService.getSessionStorage('carts');
+            var index = null;
+
+            productsInCart.forEach(function (p, i) {
+                if (p.productId === product.productId) {
+                    index = i;
+                }
+            });
+
+            productsInCart.splice(index, 1);
+            rootScope.carts.products.splice(index, 1);
+            ngStorageService.setSessionStorage('carts', productsInCart);
         }
     }
 })();
