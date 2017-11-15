@@ -1,0 +1,93 @@
+﻿@model WebAPI.Models.Order
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var orderId = ViewBag.OrderId;
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderId)
+        </dt>
+        <dd>
+            @Html.TextBoxFor(model => model.OrderId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerId)
+        </dt>
+        <dd>
+            @Html.TextBoxFor(model => model.CustomerId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd>
+            @Html.TextBoxFor(model => model.Address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+        <dd>
+            @Html.TextBoxFor(model => model.Amount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RequireDate)
+        </dt>
+        <dd>
+            @Html.TextBoxFor(model => model.RequireDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </dt>
+        <dd>
+            @Html.TextBoxFor(model => model.OrderDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.TextBoxFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd>
+            @Html.CheckBoxFor(model => model.Status)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = orderId }) |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script>
+    $(function () {
+        $("input").prop("disabled", "disabled");
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:49595/api/Orders/" + @orderId,
+            success: function (data) {
+                $("#OrderId").val(data.orderId);
+                $("#CustomerId").val(data.customerId);
+                $("#Address").val(data.address);
+                $("#Amount").val(data.amount);
+                $("#RequireDate").val(data.requireDate);
+                $("#OrderDate").val(data.orderDate);
+                $("#Description").val(data.description);
+                $("#Status").prop("checked", data.status);
+            },
+            error: function(a, b, c) {
+                console.log(a);
+                console.log(b);
+                console.log(c);
+            }
+        });
+    });
+</script>

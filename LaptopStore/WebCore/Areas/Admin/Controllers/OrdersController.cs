@@ -8,12 +8,23 @@ using WebAPI.Models;
 namespace WebCore.Controllers
 {
     [Area("Admin")]
+
     public class OrdersController : Controller
     {
-        
-
         public IActionResult Index()
         {
+            return View();
+        }
+
+        public IActionResult Details(int id)
+        {
+            ViewBag.OrderId = id;
+            return View();
+        }
+
+        public IActionResult Edit(int id)
+        {
+            ViewBag.OrderId = id;
             return View();
         }
 
