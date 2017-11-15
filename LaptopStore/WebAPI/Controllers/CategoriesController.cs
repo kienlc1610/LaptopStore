@@ -54,7 +54,7 @@ namespace WebAPI.Controllers
         public JsonResult Update(Category category)
         {
             var cate = _context.Category.Find(category.CateId);
-            if (cate==null)
+            if (cate == null)
             {
                 throw new Exception("Can not update this Category");
             }
