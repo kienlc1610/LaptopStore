@@ -33,7 +33,7 @@ namespace WebAPI
                     .AllowAnyMethod()
                     .AllowAnyHeader();
             }));
-            var connection = @"Data Source=(localdb)\mssqllocaldb;Initial Catalog=LaptopStore;Integrated Security=True";
+            var connection = @"Data Source=.\SQLEXPRESS;Initial Catalog=LapTopStore;Integrated Security=True";
             services.AddDbContext<LaptopStoreContext>(options => options.UseSqlServer(connection));
         }
 
