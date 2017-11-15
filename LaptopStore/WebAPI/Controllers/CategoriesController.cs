@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +12,8 @@ using Microsoft.AspNetCore.Cors;
 namespace WebAPI.Controllers
 {
     [Produces("application/json")]
-    [EnableCors("MyPolicyA"),Route("api/Categories")]
+    [Route("api/Categories")]
+    [EnableCors("MyPolicyA")]
     public class CategoriesController : Controller
     {
         private readonly LaptopStoreContext _context;
@@ -30,7 +32,7 @@ namespace WebAPI.Controllers
 
         // GET: api/Categories/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCategory([FromRoute] int id)
+        public async Task<IActionResult> GetCategory(int id)
         {
             if (!ModelState.IsValid)
             {
@@ -47,54 +49,40 @@ namespace WebAPI.Controllers
             return Ok(category);
         }
 
-        // PUT: api/Categories/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory([FromRoute] int id, [FromBody] Category category)
+        [HttpPost]
+        [Route("Update")]
+        public JsonResult Update(Category category)
         {
-            if (!ModelState.IsValid)
+            var cate = _context.Category.Find(category.CateId);
+            if (cate==null)
             {
-                return BadRequest(ModelState);
+                throw new Exception("Can not update this Category");
             }
-
-            if (id != category.CateId)
+            else
             {
-                return BadRequest();
+                cate.Name = category.Name;
+                cate.Alias = category.Alias;
+                _context.Entry(cate).State = EntityState.Modified;
+                _context.SaveChanges();
             }
-
-            _context.Entry(category).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CategoryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Json(true);
         }
+
+       
 
         // POST: api/Categories
         [HttpPost]
-        public async Task<IActionResult> PostCategory([FromBody] Category category)
+        [Route("Create")]
+        public JsonResult PostCategory( Category category)
         {
-            if (!ModelState.IsValid)
+            var cate = _context.Category.Find(category.CateId);
+            if (cate!=null)
             {
-                return BadRequest(ModelState);
+                throw new Exception("Exist CateId the same!");
             }
-
             _context.Category.Add(category);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCategory", new { id = category.CateId }, category);
+            _context.SaveChanges();
+            return Json(true);
         }
 
         // DELETE: api/Categories/5

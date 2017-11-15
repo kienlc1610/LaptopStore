@@ -8,9 +8,9 @@
 
 <form asp-controller="Products" asp-action="Index" method="get">
     <p>
-        <a asp-action="Create" id="insert" style="font-size:14pt;">Create New</a>
+        <a asp-action="Create" id="insert" class="btn btn-danger" style="font-size:12pt;">Create New</a>
     </p>
-    <table class="table" border="1" cellpadding="10">
+    <table class="table" border="1" cellpadding="10">   
         <thead class="table-bordered" style="background-color:#00ff21;">
             <tr>
                 <th>
@@ -29,7 +29,13 @@
                     Image:
                 </th>
                 <th>
-                    Description:
+                    Discount:
+                </th>
+                <th>
+                    Quantity:
+                </th>
+                <th>
+                    Description
                 </th>
                 <th>
                     Status:
@@ -60,10 +66,10 @@
                     var item = data[i];
                     $("#tableProduct").append('<tr>\
                         <td>\
-                        <div id="productid">'+ item.productid + '</div>\
+                        <div id="productid">'+ item.productId + '</div>\
                         </td>\
                         <td>\
-                        <div id="cateid">'+ item.cateid + '</div>\
+                        <div id="cateid">'+ item.cateId + '</div>\
                         </td>\
                         <td>\
                         <div id="name">'+ item.name + '</div>\
@@ -75,15 +81,21 @@
                         <div id="image">'+ item.image + '</div>\
                         </td>\
                         <td>\
+                        <div id="discount">'+ item.discount + ' (%)</div>\
+                        </td>\
+                        <td>\
+                        <div id="quantity">'+ item.quantity + '</div>\
+                        </td>\
+                        <td>\
                         <div id="description">'+ item.description + '</div>\
                         </td>\
                         <td>\
                         <div id="status">'+ item.status + '</div>\
                         </td>\
                         <td style="font-size:12pt;">\
-                        <a onclick="Details('+ item.productid + ')" id="detail">Details</a> |\
-                    <a onclick="Update('+ item.productid + ')" id="update">Update</a> |\
-                    <a onclick="Delete('+ item.productid + ')" id="delete">Delete</a>\
+                        <a href="/Products/Details?id='+ item.productId + '" id="detail" class="btn btn-success">Details</a> |\
+                    <a href="/Products/Edit?id='+ item.productId + '" id="update" class="btn btn-success">Update</a> |\
+                    <button type="button" onclick="DeletePro('+ item.productId + ')" id="delete" class="btn btn-success">Delete</button>\
                         </td>\
                         </tr>');
                 }
@@ -96,7 +108,7 @@
         });
         $("#productid").change(function () {
             var options = {};
-            options.url = "http://localhost:49595/api/Products/{id}" + $("#ProductID").val();
+            options.url = "http://localhost:49595/api/Products/{id}" + $("#ProductId").val();
             options.type = "GET";
             options.dataType = "json";
             options.success = function (data) {
@@ -104,6 +116,8 @@
                 $("#name").val(data.Name);
                 $("#price").val(data.Price);
                 $("#image").val(data.Image);
+                $("#discount").val(data.Discount);
+                $("#quantity").val(data.Quantity);
                 $("#description").val(data.Description);
                 $("#status").val(data.Status);
             };
@@ -113,5 +127,22 @@
             $.ajax(options);
         });
     });
+
+    function DeletePro(id) {
+        if (confirm("Do you want to delete this product?")) {
+            $.ajax({
+                crossDomain: true,
+                type: "DELETE",
+                url: "http://localhost:49595/api/Products/" + id,
+                dataType: "json",
+                success: function (result) {
+                    location.reload();
+                },
+                error: function (a, b, c) {
+                    alert("Error when delete product");
+                }
+            });
+        }
+    }
 </script>
 

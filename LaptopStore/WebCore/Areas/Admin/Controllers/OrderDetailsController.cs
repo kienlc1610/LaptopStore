@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebCore.Areas.Admin.Controllers
+namespace WebCore.Controllers
 {
     public class OrderDetailsController : Controller
     {
@@ -12,5 +12,6 @@ namespace WebCore.Areas.Admin.Controllers
         {
             return View();
         }
+
     }
 }

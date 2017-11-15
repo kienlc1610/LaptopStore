@@ -6,12 +6,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Models;
-using Microsoft.AspNetCore.Cors;
 
 namespace WebAPI.Controllers
 {
     [Produces("application/json")]
-    [EnableCors("MyPolicyA"),Route("api/Products")]
+    [EnableCors("MyPolicyA"), Route("api/Products")]
     public class ProductsController : Controller
     {
         private readonly LaptopStoreContext _context;
@@ -23,20 +22,21 @@ namespace WebAPI.Controllers
 
         // GET: api/Products
         [HttpGet]
-        public async Task<List<Product>> GetProduct([FromQuery] FilterProduct filter )
+        public async IEnumerable<Product> GetProduct([FromQuery] FilterProduct filter)
         {
             var allProducts = _context.Product.AsQueryable();
             var countProduct = _context.Product.Count();
 
-            if (filter.CateID != 0 )
+            if (filter.CateID != 0)
             {
                 allProducts = allProducts.Where(m => m.CateId == filter.CateID);
             }
 
-            if (filter.PriceTo != 0 )
+            if (filter.PriceTo != 0)
             {
                 allProducts = allProducts.Where(m => m.Price >= filter.PriceFrom && m.Price <= filter.PriceTo);
-            } else
+            }
+            else
             {
                 allProducts = allProducts.Where(m => m.Price >= filter.PriceFrom);
             }
@@ -53,7 +53,6 @@ namespace WebAPI.Controllers
 
             return await allProducts.ToListAsync();
         }
-
         [HttpGet]
         [Route("Count")]
         public async Task<int> CountAllProducts()
@@ -67,7 +66,6 @@ namespace WebAPI.Controllers
         {
             return _context.Product.OrderByDescending(parameter => parameter.ProductId).Take(5);
         }
-
         // GET: api/Products/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProduct([FromRoute] int id)
@@ -124,18 +122,19 @@ namespace WebAPI.Controllers
 
         // POST: api/Products
         [HttpPost]
-        public async Task<IActionResult> PostProduct([FromBody] Product product)
+        [Route("Create")]
+        public JsonResult PostProduct(Product product)
         {
-            if (!ModelState.IsValid)
+            var prodt = _context.Product.Find(product.ProductId);
+            if (prodt != null)
             {
-                return BadRequest(ModelState);
+                throw new Exception("Exist ProductId the same!");
             }
-
             _context.Product.Add(product);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetProduct", new { id = product.ProductId }, product);
+            _context.SaveChanges();
+            return Json(true);
         }
+
 
         // DELETE: api/Products/5
         [HttpDelete("{id}")]

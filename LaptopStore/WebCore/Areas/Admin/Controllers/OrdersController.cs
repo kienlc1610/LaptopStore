@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI.Models;
 
-namespace WebCore.Areas.Admin.Controllers
+namespace WebCore.Controllers
 {
     public class OrdersController : Controller
     {
@@ -12,5 +13,6 @@ namespace WebCore.Areas.Admin.Controllers
         {
             return View();
         }
+
     }
 }

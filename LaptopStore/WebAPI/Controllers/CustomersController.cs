@@ -83,31 +83,17 @@ namespace WebAPI.Controllers
 
         // POST: api/Customers
         [HttpPost]
-        public async Task<IActionResult> PostCustomer([FromBody] Customer customer)
+        [Route("Create")]
+        public JsonResult PostCustomer(Customer customer)
         {
-            if (!ModelState.IsValid)
+            var cus = _context.Customer.Find(customer.CustomerId);
+            if (cus != null)
             {
-                return BadRequest(ModelState);
+                throw new Exception("Exist CustomerId the same!");
             }
-
             _context.Customer.Add(customer);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (CustomerExists(customer.CustomerId))
-                {
-                    return new StatusCodeResult(StatusCodes.Status409Conflict);
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            _context.SaveChanges();
+            return Json(true);
         }
 
         // DELETE: api/Customers/5
