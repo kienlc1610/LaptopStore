@@ -1,7 +1,7 @@
 ﻿@model WebAPI.Models.Category
 @{
     ViewData["Title"] = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
     var cateId = ViewBag.CateId;
 }
 <h2>Edit</h2>
@@ -34,7 +34,7 @@
     <a asp-action="Index">Back to List</a>
 </div>
 <script>
-    $(function () {
+    $(document).ready(function () {
         $.ajax({
             type: "GET",
             url: "http://localhost:49595/api/Categories/"+ @cateId,

@@ -1,12 +1,12 @@
 ﻿
 @{
     ViewData["Title"] = "Products";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h2>Product List</h2>
 
-<form asp-controller="Products" asp-action="Index" method="get">
+<form asp-route="/Admin" asp-controller="Products" asp-action="Index" method="get">
     <p>
         <a asp-action="Create" id="insert" class="btn btn-danger" style="font-size:12pt;">Create New</a>
     </p>
@@ -93,8 +93,8 @@
                         <div id="status">'+ item.status + '</div>\
                         </td>\
                         <td style="font-size:12pt;">\
-                        <a href="/Products/Details?id='+ item.productId + '" id="detail" class="btn btn-success">Details</a> |\
-                    <a href="/Products/Edit?id='+ item.productId + '" id="update" class="btn btn-success">Update</a> |\
+                        <a href="/Admin/Products/Details?id='+ item.productId + '" id="detail" class="btn btn-success">Details</a> |\
+                    <a href="/Admin/Products/Edit?id='+ item.productId + '" id="update" class="btn btn-success">Update</a> |\
                     <button type="button" onclick="DeletePro('+ item.productId + ')" id="delete" class="btn btn-success">Delete</button>\
                         </td>\
                         </tr>');

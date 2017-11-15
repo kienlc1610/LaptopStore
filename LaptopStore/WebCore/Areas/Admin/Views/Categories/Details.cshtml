@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
     var cateId = ViewBag.CateId;
 }
 
@@ -33,7 +33,7 @@
 </div>
 
 <script>
-    $(function () {
+    $(document).ready(function () {
         $("input").prop("disabled", "disabled");
         $.ajax({
             type: "GET",

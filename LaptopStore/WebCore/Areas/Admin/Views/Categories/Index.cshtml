@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = "Category";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h1>Category List</h1>
@@ -58,8 +58,8 @@
                         <div id="alias">'+ item.alias + '</div>\
                         </td>\
                         <td style="font-size:12pt;">\
-                        <a href="/Categories/Details?id='+ item.cateId + '" id="detail" class="btn btn-success">Details</a> |\
-                    <a href="/Categories/Edit?id='+ item.cateId + '" id="update" class="btn btn-success">Update</a> |\
+                        <a href="/Admin/Categories/Details?id='+ item.cateId + '" id="detail" class="btn btn-success">Details</a> |\
+                    <a href="/Admin/Categories/Edit?id='+ item.cateId + '" id="update" class="btn btn-success">Update</a> |\
                     <button type="button" onclick="DeleteCate('+ item.cateId + ')" id="delete" class="btn btn-success">Delete</button>\
                         </td>\
                         </tr>');

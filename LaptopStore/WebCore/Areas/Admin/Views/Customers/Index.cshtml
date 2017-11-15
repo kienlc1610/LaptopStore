@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = "Customers";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h2>Customer List</h2>
@@ -70,8 +70,8 @@
                         <div id="activated">'+ item.activated + '</div>\
                         </td>\
                         <td style="font-size:12pt;">\
-                        <a href="/Customers/Details?id='+ item.customerId + '" id="detail" class="btn btn-success">Details</a> |\
-                    <a href="/Customers/Edit?id='+ item.customerId + '" id="update" class="btn btn-success">Update</a> |\
+                        <a href="/Admin/Customers/Details?id='+ item.customerId + '" id="detail" class="btn btn-success">Details</a> |\
+                    <a href="/Admin/Customers/Edit?id='+ item.customerId + '" id="update" class="btn btn-success">Update</a> |\
                     <button type="button" onclick="DeleteCustom('+ item.customerId + ')" id="delete" class="btn btn-success">Delete</button>\
                         </td>\
                         </tr>');

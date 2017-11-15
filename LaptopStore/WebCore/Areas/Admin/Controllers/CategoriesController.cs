@@ -8,7 +8,8 @@ using WebAPI.Models;
 
 namespace WebCore.Controllers
 {
-    
+    [Area("Admin")]
+
     public class CategoriesController : Controller
     {
         public IActionResult Index()

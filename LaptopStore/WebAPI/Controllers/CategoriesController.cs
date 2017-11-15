@@ -68,8 +68,6 @@ namespace WebAPI.Controllers
             return Json(true);
         }
 
-       
-
         // POST: api/Categories
         [HttpPost]
         [Route("Create")]

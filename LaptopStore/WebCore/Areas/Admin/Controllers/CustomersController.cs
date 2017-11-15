@@ -7,6 +7,8 @@ using WebAPI.Models;
 
 namespace WebCore.Controllers
 {
+    [Area("Admin")]
+
     public class CustomersController : Controller
     {
         public IActionResult Index()

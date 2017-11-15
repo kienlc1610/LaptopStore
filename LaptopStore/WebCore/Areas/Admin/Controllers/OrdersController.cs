@@ -7,8 +7,11 @@ using WebAPI.Models;
 
 namespace WebCore.Controllers
 {
+    [Area("Admin")]
     public class OrdersController : Controller
     {
+        
+
         public IActionResult Index()
         {
             return View();
