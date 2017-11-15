@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace WebAPI.Controllers
 {
@@ -22,7 +23,7 @@ namespace WebAPI.Controllers
 
         // GET: api/Products
         [HttpGet]
-        public async IEnumerable<Product> GetProduct([FromQuery] FilterProduct filter)
+        public async Task<List<Product>> GetProduct([FromQuery] FilterProduct filter)
         {
             var allProducts = _context.Product.AsQueryable();
             var countProduct = _context.Product.Count();

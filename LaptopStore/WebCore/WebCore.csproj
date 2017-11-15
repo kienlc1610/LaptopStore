@@ -24,4 +24,16 @@
     <Folder Include="wwwroot\data\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Areas\Admin\Views\Categories\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Customers\Index.cshtml" />
+    <None Include="Areas\Admin\Views\OrderDetails\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Orders\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Products\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WebAPI\WebAPI.csproj" />
+  </ItemGroup>
+
 </Project>
