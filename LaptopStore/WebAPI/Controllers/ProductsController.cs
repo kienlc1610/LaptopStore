@@ -178,7 +178,8 @@ namespace WebAPI.Controllers
         [Route("Search")]
         public JsonResult SearchProducts(string productName)
         {
-            if (string.IsNullOrEmpty(productName){
+            if (string.IsNullOrEmpty(productName))
+            {
                 var products = _context.Product.Where(p => p.Name.Contains(productName));
                 return Json(products);
             }
