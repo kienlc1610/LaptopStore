@@ -13,7 +13,7 @@ namespace WebAPI.Controllers
     [Produces("application/json")]
     [EnableCors("MyPolicyA"), Route("api/Products")]
     public class ProductsController : Controller
-    {
+    {     
         private readonly LaptopStoreContext _context;
 
         public ProductsController(LaptopStoreContext context)
@@ -172,6 +172,17 @@ namespace WebAPI.Controllers
         public async Task<double> GetMinPriceOfAllProducts()
         {
             return await _context.Product.MinAsync(p => p.Price);
+        }
+
+        LaptopStoreContext db = new LaptopStoreContext();
+        public IActionResult SearchProduct(string productName)
+        {
+            var prodt = from s in db.Product select s;
+            if (!String.IsNullOrEmpty(productName))
+            {
+                prodt = prodt.Where(c => c.Name.Contains(productName));
+            }
+            return View(prodt);
         }
     }
 }
