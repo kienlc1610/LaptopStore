@@ -174,15 +174,15 @@ namespace WebAPI.Controllers
             return await _context.Product.MinAsync(p => p.Price);
         }
 
-        LaptopStoreContext db = new LaptopStoreContext();
-        public IActionResult SearchProduct(string productName)
+        [HttpGet]
+        [Route("Search")]
+        public JsonResult SearchProducts(string productName)
         {
-            var prodt = from s in db.Product select s;
-            if (!String.IsNullOrEmpty(productName))
-            {
-                prodt = prodt.Where(c => c.Name.Contains(productName));
+            if (string.IsNullOrEmpty(productName){
+                var products = _context.Product.Where(p => p.Name.Contains(productName));
+                return Json(products);
             }
-            return View(prodt);
+            return Json(new List<Product>());
         }
     }
 }
