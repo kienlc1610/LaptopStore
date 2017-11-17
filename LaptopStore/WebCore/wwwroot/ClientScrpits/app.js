@@ -41,7 +41,9 @@
             });
     }]);
 
-    app.run(['NgStorageService', '$rootScope', function (ngStorageService,$rootScope) {
+    app.run(['NgStorageService', '$rootScope', function (ngStorageService, $rootScope) {
+        $rootScope.user = ngStorageService.getSessionStorage('user');
+        console.log($rootScope.user);
         $rootScope.carts = {};
 
         $rootScope.removeProductFromCart = removeProductFromCart;

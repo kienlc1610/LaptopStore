@@ -66,8 +66,9 @@
                 <!-- BEGIN TOP BAR MENU -->
                 <div class="col-md-6 col-sm-6 additional-nav">
                     <ul class="list-unstyled list-inline pull-right">
-                        <li><a href="/Account/Register">Register</a></li>
-                        <li><a href="/Account/Login">Log In</a></li>
+                        <li data-ng-if="!user"><a href="/Account/Register">Register</a></li>
+                        <li data-ng-if="!user"><a href="/Account/Login">Log In</a></li>
+                        <li data-ng-if="user">{{user.email}}</li>
                     </ul>
                 </div>
                 <!-- END TOP BAR MENU -->

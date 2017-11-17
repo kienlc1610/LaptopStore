@@ -5,17 +5,22 @@
         .module('LoginApp')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$location', '$scope', 'AccountService', 'toastr', 'NgStorageService'];
+    LoginController.$inject = ['$location', '$scope', 'AccountService', 'toastr', 'NgStorageService', '$window','$rootScope'];
 
-    function LoginController($location, $scope, AccountService, toastr, NgStorageService) {
+    function LoginController($location, $scope, AccountService, toastr, NgStorageService, $window, $rootScope) {
         /* jshint validthis:true */
         var vm = $scope;
+        var rvm = $rootScope;
 
         vm.login = login;
 
         activate();
 
-        function activate() { }
+        function activate() {
+            if (NgStorageService.getSessionStorage("user") || rvm.user) {
+                $window.location.href = '/';
+            }
+        }
 
         function login(account) {
             if (account) {
@@ -27,7 +32,14 @@
                 AccountService.loginAccount(loginAccount)
                     .then(function (res) {
                         toastr.success('Login Successfully!');
+                        var user = res;
                         NgStorageService.setSessionStorage('user', res);
+                        if (user.isadmin) {
+                            $window.location.href = '/Admin/Home';
+
+                        } else {
+                            $window.location.href = '/';
+                        }
                     })
                     .catch(function (err) {
                         toastr.error(err.message);

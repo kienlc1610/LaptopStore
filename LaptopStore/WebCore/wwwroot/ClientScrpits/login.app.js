@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('LoginApp', [
+    var app = angular.module('LoginApp', [
         // Angular modules 
         'ngRoute',
         'toastr',
@@ -13,4 +13,6 @@
         // 3rd Party Modules
 
     ]);
+
+    
 })();

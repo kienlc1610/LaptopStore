@@ -5,9 +5,9 @@
         .module('laptopStoreApp')
         .controller('CheckOutController', CheckOutController);
 
-    CheckOutController.$inject = ['$location', 'HomeService', '$scope', '$rootScope', '$q'];
+    CheckOutController.$inject = ['$location', 'HomeService', '$scope', '$rootScope', '$q', 'NgStorageService', '$sessionStorage'];
 
-    function CheckOutController($location, HomeService, $scope, $rootScope, $q) {
+    function CheckOutController($location, HomeService, $scope, $rootScope, $q, NgStorageService, $sessionStorage) {
         /* jshint validthis:true */
         var vm = $scope;
 
@@ -52,6 +52,11 @@
                                 if (tasks.length > 0) {
                                     $q.all(tasks)
                                         .then(function (data) {
+                                            delete $sessionStorage['carts']
+                                            $rootScope.carts = {
+                                                products: []
+                                            };
+
                                             $location.path('/');
                                             $location.replace();
                                         })
