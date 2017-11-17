@@ -19,7 +19,7 @@ namespace WebAPI.Models
         public string CustomerId { get; set; }
 
         [StringLength(150)]
-        [DataType(DataType.MultilineText]
+        [DataType(DataType.MultilineText)]
         [Required(ErrorMessage = "Address is required" )]
         public string Address { get; set; }
 

@@ -84,7 +84,7 @@ namespace WebAPI.Controllers
         // POST: api/Customers
         [HttpPost]
         [Route("Create")]
-        public JsonResult PostCustomer(Customer customer)
+        public JsonResult PostCustomer([FromBody] Customer customer)
         {
             var cus = _context.Customer.Find(customer.CustomerId);
             if (cus != null)
@@ -93,7 +93,7 @@ namespace WebAPI.Controllers
             }
             _context.Customer.Add(customer);
             _context.SaveChanges();
-            return Json(true);
+            return Json(customer);
         }
 
         // DELETE: api/Customers/5

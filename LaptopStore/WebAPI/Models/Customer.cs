@@ -9,6 +9,7 @@ namespace WebAPI.Models
         public Customer()
         {
             Order = new HashSet<Order>();
+            CustomerId = Guid.NewGuid().ToString();
         }
 
         [Display(Name = "Customer ID")]

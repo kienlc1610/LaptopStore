@@ -83,17 +83,27 @@ namespace WebAPI.Controllers
 
         // POST: api/OrderDetails
         [HttpPost]
-        public async Task<IActionResult> PostOrderDetail([FromBody] OrderDetail orderDetail)
+        public async Task<IActionResult> PostOrderDetail([FromBody] OrderDetailViewModel parameter)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.OrderDetail.Add(orderDetail);
+            OrderDetail oderDetail = new OrderDetail()
+            {
+                OrderId = parameter.OrderId,
+                Discount = parameter.Discount,
+                ProductId = parameter.ProductId,
+                Quantity = parameter.Quantity,
+                UnitPrice = parameter.UnitPrice,
+                
+            };
+
+            _context.OrderDetail.Add(oderDetail);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetOrderDetail", new { id = orderDetail.Id }, orderDetail);
+            return CreatedAtAction("GetOrderDetail", new { id = oderDetail.Id }, oderDetail);
         }
 
         // DELETE: api/OrderDetails/5

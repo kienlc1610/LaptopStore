@@ -45,7 +45,7 @@ CREATE TABLE [Order] (
 	[RequireDate] datetime NOT NULL,
 	[OrderDate] datetime NOT NULL,
 	[Description] nvarchar(max) NULL,
-	[Status] bit NOT NULL,
+	[Status] bit DEFAULT(1)NOT NULL,
 	CONSTRAINT [PK_Order] PRIMARY KEY ([OrderID]),
 	CONSTRAINT [FK_Order_Customer_CustomerID] FOREIGN KEY ([CustomerID]) REFERENCES [Customer] ([CustomerID]) ON DELETE CASCADE
 );

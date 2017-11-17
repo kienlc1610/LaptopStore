@@ -6,7 +6,12 @@ namespace WebAPI.Models
 {
     public partial class OrderDetail
     {
-        [Display(Name = "OrderDetail ID"]
+        public OrderDetail ()
+        {
+
+        }
+
+        [Display(Name = "ID")]
         public int Id { get; set; }
 
         [Display(Name = "Order ID")]

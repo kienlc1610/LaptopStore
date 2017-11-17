@@ -1,10 +1,27 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace WebAPI.Models
 {
-    public partial class LaptopStoreContext : DbContext
+    public class UserEntity : IdentityUser
+    {
+        public string FristName { get; set; }
+        public string LastName { get; set; }
+        public string DisplayName
+        {
+            get
+            {
+                return this.FristName + " " + this.LastName;
+            }
+        }
+
+        public string Address { get; set; }
+
+    }
+    public partial class LaptopStoreContext : IdentityDbContext<UserEntity>
     {
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
@@ -18,6 +35,7 @@ namespace WebAPI.Models
 
         public LaptopStoreContext()
         {
+            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -37,6 +55,7 @@ namespace WebAPI.Models
 
             modelBuilder.Entity<Customer>(entity =>
             {
+                entity.HasKey(m => m.CustomerId);
                 entity.Property(e => e.CustomerId)
                     .HasColumnName("CustomerID")
                     .HasMaxLength(100)
@@ -51,6 +70,8 @@ namespace WebAPI.Models
 
             modelBuilder.Entity<Order>(entity =>
             {
+                entity.HasKey(m => m.OrderId);
+
                 entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
                 entity.Property(e => e.Address)
@@ -73,6 +94,8 @@ namespace WebAPI.Models
 
             modelBuilder.Entity<OrderDetail>(entity =>
             {
+                entity.HasKey(m => m.Id);
+
                 entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
@@ -88,6 +111,8 @@ namespace WebAPI.Models
 
             modelBuilder.Entity<Product>(entity =>
             {
+                entity.HasKey(m => m.ProductId);
+
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
                 entity.Property(e => e.CateId).HasColumnName("CateID");
@@ -104,6 +129,8 @@ namespace WebAPI.Models
                     .WithMany(p => p.Product)
                     .HasForeignKey(d => d.CateId);
             });
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
