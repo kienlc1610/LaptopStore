@@ -22,6 +22,7 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="wwwroot\data\" />
+    <Folder Include="wwwroot\Html\Admin\Product\" />
   </ItemGroup>
 
   <ItemGroup>
