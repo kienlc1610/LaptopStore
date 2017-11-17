@@ -21,9 +21,7 @@
         var vm = $scope;
         var rootScope = $rootScope;
 
-        rootScope.carts = {
-            
-        };
+        
         vm.latestProducts = null;
         vm.products = null;
         vm.filter = {};
@@ -33,36 +31,16 @@
                 step: 1000000
             }
         };
-        rootScope.removeProductFromCart = removeProductFromCart;
+
+        
         vm.openProductDetail = openProductDetail;
         vm.addCart = addCart;
         vm.getProductByCategory = getProductByCategory;
 
         activate();
-            
-        rootScope.$watchCollection('carts.products', function (newValue, oldValue) {
-            var total = 0;
-
-            if (!angular.isUndefined(newValue) || newValue.length !== 0 || newValue !== null) {
-
-                newValue.forEach(function (product) {
-                    total += (product.price * product.quantity);
-                });
-
-                rootScope.carts.total = total;
-            } else {
-                rootScope.carts.total = total;
-            }
-        }, true);
 
         function activate() {
-            var foundCarts = ngStorageService.getSessionStorage('carts');
-            if (!angular.isUndefined(foundCarts)) {
-                rootScope.carts.products = foundCarts
-            } else {
-                rootScope.carts.products = [];
-            }
-
+           
             getAllProducts();
             getFiveLatestProducts();
             getAllCategories();
@@ -182,7 +160,7 @@
                         productInCart.forEach(function (p) {
                             if (p.productId === product.productId) {
                                 p.quantity++;
-                                rootScope.carts.total += (p.quantity * p.price);
+                                rootScope.carts.total += p.price;
                             }
                         });
                     } else {
@@ -194,21 +172,8 @@
                 
             }
             ngStorageService.setSessionStorage('carts', productInCart);
-            }
-
-        function removeProductFromCart(product) {
-            var productsInCart = ngStorageService.getSessionStorage('carts');
-            var index = null;
-
-            productsInCart.forEach(function (p, i) {
-                if (p.productId === product.productId) {
-                    index = i;
-                }
-            });
-
-            productsInCart.splice(index, 1);
-            rootScope.carts.products.splice(index, 1);
-            ngStorageService.setSessionStorage('carts', productsInCart);
         }
+
+        
     }
 })();

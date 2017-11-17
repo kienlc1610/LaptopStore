@@ -38,7 +38,7 @@ namespace WebCore
                 .AddDefaultTokenProviders();
 
             // Add application services.
-            services.AddTransient<IEmailSender, EmailSender>();
+            //services.AddTransient<IEmailSender, EmailSender>();
 
             // Add framework services.
             services.AddMvc();
@@ -66,7 +66,7 @@ namespace WebCore
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
+                //app.UseBrowserLink();
                 app.UseDatabaseErrorPage();
             }
             else
@@ -93,5 +93,6 @@ namespace WebCore
             // Enable Cors
             app.UseCors("MyPolicy");
         }
+
     }
 }

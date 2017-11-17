@@ -20,7 +20,7 @@
                         <em><span>{{(productDetail.price + (productDetail.price * productDetail.discount)) | currency:"VND" : 0}}</span></em>
                     </div>
                     <div class="availability">
-                        Availability: <strong>In Stock</strong>
+                        Availability: <strong>{{productDetail.status}}</strong>
                     </div>
                 </div>
                 <div class="description" ng-bind-html="productDetail.description">
@@ -28,9 +28,9 @@
                 </div>
                 <div class="product-page-cart">
                     <div class="product-quantity">
-                        <input id="product-quantity" type="number" value="1" min="1" class="form-control input-sm">
+                        <input id="product-quantity" type="number" value="{{productDetail.quantity}}" min="1" class="form-control input-sm" ng-model="productDetail.quantity">
                     </div>
-                    <button class="btn btn-primary" type="submit">Add to cart</button>
+                    <button class="btn btn-primary" type="submit" ng-click="addCart(productDetail)">Add to cart</button>
                 </div>
                 
                 <ul class="social-icons">
