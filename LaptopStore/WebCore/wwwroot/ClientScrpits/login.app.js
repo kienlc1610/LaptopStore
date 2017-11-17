@@ -5,7 +5,8 @@
         // Angular modules 
         'ngRoute',
         'toastr',
-        'ngStorage'
+        'ngStorage',
+        'laptopStoreApp'
 
         // Custom modules 
 
