@@ -15,16 +15,10 @@ namespace WebAPI.Controllers
     public class ProductsController : Controller
     {     
         private readonly LaptopStoreContext _context;
-        private object testProducts;
 
         public ProductsController(LaptopStoreContext context)
         {
             _context = context;
-        }
-
-        public ProductsController(object testProducts)
-        {
-            this.testProducts = testProducts;
         }
 
         // GET: api/Products
