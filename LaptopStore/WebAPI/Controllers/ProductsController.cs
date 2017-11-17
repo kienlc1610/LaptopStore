@@ -124,8 +124,20 @@ namespace WebAPI.Controllers
         // POST: api/Products
         [HttpPost]
         [Route("Create")]
-        public JsonResult PostProduct(Product product)
+        public JsonResult PostProduct([FromBody] ProductViewModel viewModel)
         {
+            Product product = new Product()
+            {
+                Name = viewModel.Name,
+                Price = viewModel.Price,
+                Description = viewModel.Description,
+                CateId = viewModel.CateId,
+                Discount = viewModel.Discount,
+                Image = viewModel.Image,
+                Quantity = viewModel.Quantity,
+                Status = viewModel.Status
+            };
+
             var prodt = _context.Product.Find(product.ProductId);
             if (prodt != null)
             {

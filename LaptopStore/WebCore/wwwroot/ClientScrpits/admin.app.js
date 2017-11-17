@@ -20,7 +20,11 @@
             })
             .when('/products/:id', {
                 templateUrl: '/Html/Admin/Product/product-detail.html',
-                controller: ''
+                controller: 'AdminProductDetail'
+            })
+            .when('/create/product', {
+                templateUrl: '/Html/Admin/Product/product-create.html',
+                controller: 'AdminProductCreate'
             })
             .otherwise({
                 redirectTo: '/'

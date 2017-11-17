@@ -12,9 +12,9 @@
             getAllProducts: getAllProducts,
             deleteProduct: deleteProduct,
             getAllCategories: getAllCategories,
-            countProducts: countProducts,
+            updateProduct: updateProduct,
             getProductDetail: getProductDetail,
-            getMinPriceOfProduct: getMinPriceOfProduct,
+            createProduct: createProduct,
             getMaxPriceOfProduct: getMaxPriceOfProduct,
             createCustomer: createCustomer,
             createOrder: createOrder,
@@ -66,10 +66,10 @@
             return deferred.promise;
         }
 
-        function countProducts() {
+        function updateProduct(product) {
             var deferred = $q.defer();
 
-            $http.get('http://localhost:49595/api/Products/Count')
+            $http.put('http://localhost:49595/api/Products/' + product.productId, product)
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })
@@ -95,10 +95,10 @@
 
         }
 
-        function getMaxPriceOfProduct() {
+        function createProduct(product) {
             var deferred = $q.defer();
 
-            $http.get('http://localhost:49595/api/Products/Price/Max')
+            $http.post('http://localhost:49595/api/Products/Create', product, { header: { 'Content-Type': 'application/json' } })
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })
@@ -109,7 +109,7 @@
             return deferred.promise;
         }
 
-        function getMinPriceOfProduct() {
+        function getMaxPriceOfProduct() {
             var deferred = $q.defer();
 
             $http.get('http://localhost:49595/api/Products/Price/Min')
