@@ -3,7 +3,7 @@
 
     angular
         .module('AdminApp')
-        .controller('AdminProductCreate', AdminProductCreate);
+        .controller('AdminCategoryCreate', AdminProductCreate);
 
     AdminProductCreate.$inject = ['$location', 'AdminService', 'toastr', '$scope'];
 
@@ -11,44 +11,21 @@
         /* jshint validthis:true */
         var vm = $scope;
 
-        vm.categories = [];
-        vm.createProduct = {};
-        vm.doCreateProduct = doCreateProduct;
+        vm.category = {};
+        vm.doCreateCategory = doCreateCategory;
 
 
         activate();
 
         function activate() {
-            getAllCategory();
         }
 
-        function getAllCategory() {
-            AdminService.getAllCategories()
-                .then(function (foundCate) {
-                    vm.categories = foundCate;
-                })
-                .catch(function (err) {
-                    toastr.error("Error:" + JSON.stringify(err));
-                });
+        function doCreateCategory(category) {
 
-        }
-
-        function doCreateProduct(product) {
-            var obj =  {
-                CateId: product.cateId.cateId,
-                Name: product.name,
-                Price: product.price,
-                Image: 'no-img.jpg' ,
-                Description: product.description,
-                Quantity: product.quantity,
-                Discount: product.discount,
-                Status: product.status,
-            };
-
-            AdminService.createProduct(obj)
+            AdminService.createCategory(category)
                 .then(function (res) {
-                    toastr.success("Create Product Successfully!");
-                    $location.path('/#!/products');
+                    toastr.success("Create Category Successfully!");
+                    $location.path('/categories');
                     $location.replace();
                 })
                 .catch(function (err) {

@@ -15,10 +15,13 @@
             updateProduct: updateProduct,
             getProductDetail: getProductDetail,
             createProduct: createProduct,
-            getMaxPriceOfProduct: getMaxPriceOfProduct,
+            deleteCategory: deleteCategory,
             createCustomer: createCustomer,
             createOrder: createOrder,
-            createOrderDetail: createOrderDetail
+            createOrderDetail: createOrderDetail,
+            getCategoryDetail: getCategoryDetail,
+            updateCategory: updateCategory,
+            createCategory: createCategory
         };
 
         return service;
@@ -109,10 +112,10 @@
             return deferred.promise;
         }
 
-        function getMaxPriceOfProduct() {
+        function deleteCategory(id) {
             var deferred = $q.defer();
 
-            $http.get('http://localhost:49595/api/Products/Price/Min')
+            $http.delete('http://localhost:49595/api/Categories/' + id)
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })
@@ -155,6 +158,48 @@
             var deferred = $q.defer();
 
             $http.post('http://localhost:49595/api/OrderDetails', orderDetail)
+                .then(function (res) {
+                    deferred.resolve(res.data);
+                })
+                .catch(function (err) {
+                    deferred.reject(err);
+                });
+
+            return deferred.promise;
+        }
+
+        function getCategoryDetail(id) {
+            var deferred = $q.defer();
+
+            $http.get('http://localhost:49595/api/Categories/' + id)
+                .then(function (res) {
+                    deferred.resolve(res.data);
+                })
+                .catch(function (err) {
+                    deferred.reject(err);
+                });
+
+            return deferred.promise;
+        }
+
+        function updateCategory(category) {
+            var deferred = $q.defer();
+
+            $http.put('http://localhost:49595/api/Categories/Update', category)
+                .then(function (res) {
+                    deferred.resolve(res.data);
+                })
+                .catch(function (err) {
+                    deferred.reject(err);
+                });
+
+            return deferred.promise;
+        }
+
+        function createCategory(category) {
+            var deferred = $q.defer();
+
+            $http.post('http://localhost:49595/api/Categories/Create', category)
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })

@@ -31,9 +31,9 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="category in categories">
-                                <td>{{category.cateId}}</td>
+                                <td><a ng-href="/Admin/#!/categories/{{category.cateId}}">{{category.cateId}}</a></td>
                                 <td>{{category.alias}}</td>
-                                <td>{{category.name}}</td>
+                                <td><a ng-href="/Admin/#!/categories/{{category.cateId}}">{{category.name}}</a></td>
                                 <td><button class="btn btn-danger" ng-click="deleteCategory(category.cateId)">Delete</button></td>
                                 </tr>
                         </tbody>

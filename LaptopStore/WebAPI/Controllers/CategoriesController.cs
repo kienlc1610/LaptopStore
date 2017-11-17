@@ -49,9 +49,9 @@ namespace WebAPI.Controllers
             return Ok(category);
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("Update")]
-        public JsonResult Update(Category category)
+        public JsonResult Update([FromBody]Category category)
         {
             var cate = _context.Category.Find(category.CateId);
             if (cate == null)
@@ -71,7 +71,7 @@ namespace WebAPI.Controllers
         // POST: api/Categories
         [HttpPost]
         [Route("Create")]
-        public JsonResult PostCategory( Category category)
+        public JsonResult PostCategory( [FromBody]Category category)
         {
             var cate = _context.Category.Find(category.CateId);
             if (cate!=null)

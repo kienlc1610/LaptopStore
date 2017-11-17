@@ -1,5 +1,5 @@
-﻿﻿<div class="col-lg-12 container well" style="margin-top: 50px">
-    <div class="col-md-12 col-lg-12">
+﻿﻿<div class="col-lg-12 container" style="margin-top: 50px">
+    <div class="col-md-12 col-lg-12 ">
         <button class="btn btn-default pull-right" ng-click="enableEditModel()" data-ng-show="!isEditModel">Edit</button>
     </div>
     <div class="">
@@ -17,13 +17,13 @@
             <div class="input-group col-lg-12">
                 <label class="col-md-5">Alias:</label>
                 <p class="col-md-7" data-ng-show="!isEditModel">{{category.alias}}</p>
-                <input class="col-sm-12 col-md-7 input-sm" type="number" value="{{category.alias}}" ng-model="editCategoty.alias" data-ng-show="isEditModel" />
+                <input class="col-sm-12 col-md-7 input-sm" type="text" value="{{category.alias}}" ng-model="editCategoty.alias" data-ng-show="isEditModel" />
             </div>
 
             <div class="col-lg-12" data-ng-show="isEditModel">
                 <div class="input-group-btn">
                     <button class="btn btn-default" data-ng-click="isEditModel = !isEditModel">Cancel</button>
-                    <button class="btn btn-primary" data-ng-click="updateProduct(editProduct)">Save</button>
+                    <button class="btn btn-primary" data-ng-click="updateProduct(editCategoty)">Save</button>
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@
 
     angular
         .module('AdminApp')
-        .controller('AdminProductDetail', AdminProductDetail);
+        .controller('AdminCategoryDetail', AdminProductDetail);
 
     AdminProductDetail.$inject = ['$location', 'AdminService', 'toastr', '$scope', '$routeParams'];
 
@@ -12,25 +12,24 @@
         var vm = $scope;
 
         vm.isEditModel = false;
-        var productId = $routeParams.id;
+        var categoryId = $routeParams.id;
         vm.editProduct = {};
-        vm.product = {};
-        vm.categories = [];
+        vm.category = {};
         vm.enableEditModel = enableEditModel;
         vm.updateProduct = updateProduct;
+        vm.editCategoty = {}
 
 
         activate();
 
         function activate() {
-            getProductDetail();
-            getAllCategory();
+            getCategoryDetail();
         }
 
-        function getProductDetail() {
-            AdminService.getProductDetail(productId)
-                .then(function (foundProduct) {
-                    vm.product = foundProduct;
+        function getCategoryDetail() {
+            AdminService.getCategoryDetail(categoryId)
+                .then(function (res) {
+                    vm.category = res;
                 })
                 .catch(function (err) {
                     toastr.error("Error:" + JSON.stringify(err));
@@ -39,29 +38,20 @@
 
         function enableEditModel() {
             vm.isEditModel = !vm.isEditModel;
-            vm.editProduct = angular.copy(vm.product);
+            vm.editCategoty = angular.copy(vm.category);
         }
 
-        function getAllCategory() {
-            AdminService.getAllCategories()
-                .then(function (foundCate) {
-                    vm.categories = foundCate;
-                })
-                .catch(function (err) {
-                    toastr.error("Error:" + JSON.stringify(err));
-                });
+        function updateProduct(category) {
+            var obj = {
+                CateId: category.cateId,
+                Name: category.name,
+                Alias: category.alias
+            };
 
-        }
-
-        function updateProduct(product) {
-            if (product.cateId && angular.isObject(product.cateId)) {
-                product.cateId = product.cateId.cateId;
-            }
-
-            AdminService.updateProduct(product)
+            AdminService.updateCategory(obj)
                 .then(function (res) {
                     toastr.success("Update Successfully");
-                    vm.product = angular.copy(product);
+                    vm.category = angular.copy(category);
                     vm.isEditModel = false;
                 })
                 .catch(function (err) {

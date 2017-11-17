@@ -11,7 +11,7 @@
         /* jshint validthis:true */
         var vm = $scope;
 
-        vm.deleteProduct = deleteProduct;
+        vm.deleteCategory = deleteCategory;
 
         activate();
 
@@ -29,10 +29,10 @@
                 });
         }
 
-        function deleteProduct(id) {
-            AdminService.deleteProduct(id)
+        function deleteCategory(id) {
+            AdminService.deleteCategory(id)
                 .then(function (products) {
-                    toastr.success("Product" + id + "is deleted!");
+                    toastr.success("Category" + id + "is deleted!");
                     activate();
                 })
                 .catch(function (err) {
