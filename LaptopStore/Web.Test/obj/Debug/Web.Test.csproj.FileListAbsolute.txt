@@ -1,0 +1,13 @@
+E:\Git\LaptopStore\LaptopStore\Web.Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+E:\Git\LaptopStore\LaptopStore\Web.Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+E:\Git\LaptopStore\LaptopStore\Web.Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+E:\Git\LaptopStore\LaptopStore\Web.Test\bin\Debug\Web.Test.dll
+E:\Git\LaptopStore\LaptopStore\Web.Test\bin\Debug\Web.Test.pdb
+E:\Git\LaptopStore\LaptopStore\Web.Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+E:\Git\LaptopStore\LaptopStore\Web.Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+E:\Git\LaptopStore\LaptopStore\Web.Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+E:\Git\LaptopStore\LaptopStore\Web.Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+E:\Git\LaptopStore\LaptopStore\Web.Test\obj\Debug\Web.Test.csprojResolveAssemblyReference.cache
+E:\Git\LaptopStore\LaptopStore\Web.Test\obj\Debug\Web.Test.csproj.CoreCompileInputs.cache
+E:\Git\LaptopStore\LaptopStore\Web.Test\obj\Debug\Web.Test.dll
+E:\Git\LaptopStore\LaptopStore\Web.Test\obj\Debug\Web.Test.pdb
