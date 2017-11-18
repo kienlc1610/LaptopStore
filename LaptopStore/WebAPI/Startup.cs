@@ -38,7 +38,11 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(jsonOptions =>
+                {
+                    jsonOptions.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                });
             // Add Cors
             services.AddCors(o => o.AddPolicy("MyPolicyA", builder =>
             {
@@ -46,7 +50,7 @@ namespace WebAPI
                     .AllowAnyMethod()
                     .AllowAnyHeader();
             }));
-            var connection = @"Data Source=.\SQLEXPRESS;Initial Catalog=LapTopStore;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            var connection = @"Data Source=.;Initial Catalog=LapTopStore;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             services.AddDbContext<LaptopStoreContext>(options => options.UseSqlServer(connection, sqlOptions => sqlOptions.MigrationsAssembly("WebAPI")));
 
             /*Add identity to database */
@@ -110,6 +114,7 @@ namespace WebAPI
                     }
                 };
             });
+            
 
         }
 
@@ -126,6 +131,7 @@ namespace WebAPI
             app.UseAuthentication();
 
             InitData.InitializeLaptopStoreDatabaseAsync(app.ApplicationServices).Wait();
+            
 
             app.UseMvc();
         }

@@ -12,13 +12,16 @@
             getAllProducts: getAllProducts,
             deleteProduct: deleteProduct,
             getAllCategories: getAllCategories,
-            countProducts: countProducts,
+            updateProduct: updateProduct,
             getProductDetail: getProductDetail,
-            getMinPriceOfProduct: getMinPriceOfProduct,
-            getMaxPriceOfProduct: getMaxPriceOfProduct,
+            createProduct: createProduct,
+            deleteCategory: deleteCategory,
             createCustomer: createCustomer,
             createOrder: createOrder,
-            createOrderDetail: createOrderDetail
+            createOrderDetail: createOrderDetail,
+            getCategoryDetail: getCategoryDetail,
+            updateCategory: updateCategory,
+            createCategory: createCategory
         };
 
         return service;
@@ -66,10 +69,10 @@
             return deferred.promise;
         }
 
-        function countProducts() {
+        function updateProduct(product) {
             var deferred = $q.defer();
 
-            $http.get('http://localhost:49595/api/Products/Count')
+            $http.put('http://localhost:49595/api/Products/' + product.productId, product)
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })
@@ -95,10 +98,10 @@
 
         }
 
-        function getMaxPriceOfProduct() {
+        function createProduct(product) {
             var deferred = $q.defer();
 
-            $http.get('http://localhost:49595/api/Products/Price/Max')
+            $http.post('http://localhost:49595/api/Products/Create', product, { header: { 'Content-Type': 'application/json' } })
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })
@@ -109,10 +112,10 @@
             return deferred.promise;
         }
 
-        function getMinPriceOfProduct() {
+        function deleteCategory(id) {
             var deferred = $q.defer();
 
-            $http.get('http://localhost:49595/api/Products/Price/Min')
+            $http.delete('http://localhost:49595/api/Categories/' + id)
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })
@@ -155,6 +158,48 @@
             var deferred = $q.defer();
 
             $http.post('http://localhost:49595/api/OrderDetails', orderDetail)
+                .then(function (res) {
+                    deferred.resolve(res.data);
+                })
+                .catch(function (err) {
+                    deferred.reject(err);
+                });
+
+            return deferred.promise;
+        }
+
+        function getCategoryDetail(id) {
+            var deferred = $q.defer();
+
+            $http.get('http://localhost:49595/api/Categories/' + id)
+                .then(function (res) {
+                    deferred.resolve(res.data);
+                })
+                .catch(function (err) {
+                    deferred.reject(err);
+                });
+
+            return deferred.promise;
+        }
+
+        function updateCategory(category) {
+            var deferred = $q.defer();
+
+            $http.put('http://localhost:49595/api/Categories/Update', category)
+                .then(function (res) {
+                    deferred.resolve(res.data);
+                })
+                .catch(function (err) {
+                    deferred.reject(err);
+                });
+
+            return deferred.promise;
+        }
+
+        function createCategory(category) {
+            var deferred = $q.defer();
+
+            $http.post('http://localhost:49595/api/Categories/Create', category)
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })

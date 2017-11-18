@@ -20,7 +20,23 @@
             })
             .when('/products/:id', {
                 templateUrl: '/Html/Admin/Product/product-detail.html',
-                controller: ''
+                controller: 'AdminProductDetail'
+            })
+            .when('/create/product', {
+                templateUrl: '/Html/Admin/Product/product-create.html',
+                controller: 'AdminProductCreate'
+            })
+            .when('/categories', {
+                templateUrl: '/Html/Admin/Category/category.html',
+                controller: 'AdminCategoryController'
+            })
+            .when('/categories/:id', {
+                templateUrl: '/Html/Admin/Category/category-detail.html',
+                controller: 'AdminCategoryDetail'
+            })
+            .when('/create/category', {
+                templateUrl: '/Html/Admin/Category/category-create.html',
+                controller: 'AdminCategoryCreate'
             })
             .otherwise({
                 redirectTo: '/'
