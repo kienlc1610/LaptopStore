@@ -18,6 +18,10 @@ namespace WebAPI.Controllers
     {
         private readonly LaptopStoreContext _context;
 
+        public CategoriesController()
+        {
+        }
+
         public CategoriesController(LaptopStoreContext context)
         {
             _context = context;
