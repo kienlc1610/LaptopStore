@@ -50,7 +50,7 @@ namespace WebAPI
                     .AllowAnyMethod()
                     .AllowAnyHeader();
             }));
-            var connection = @"Data Source=.;Initial Catalog=LapTopStore;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            var connection = @"Data Source=TUANALVISS93-PC\SQLEXPRESS;Initial Catalog=LapTopStore;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             services.AddDbContext<LaptopStoreContext>(options => options.UseSqlServer(connection, sqlOptions => sqlOptions.MigrationsAssembly("WebAPI")));
 
             /*Add identity to database */

@@ -16,6 +16,10 @@ namespace WebAPI.Models
         [Required(ErrorMessage = "Customer ID is required")]
         public string CustomerId { get; set; }
 
+        [StringLength(50)]
+        [Required(ErrorMessage = "Password is required")]
+        public string Email { get; set; }
+
         [Required(ErrorMessage = "Password is required")]      
         [Range(6, 16, ErrorMessage = "Price must be between {1} and {2} character")]
         [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]

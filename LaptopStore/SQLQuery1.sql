@@ -29,7 +29,8 @@ GO
 
 CREATE TABLE [Customer] (
 	[CustomerID] nvarchar(100) NOT NULL,
-	[Password] nvarchar(20) NULL,
+	[Email] nvarchar(50) NOT NULL,
+	[Password] nvarchar(20) NOT NULL,
 	[Fullname] nvarchar(max) NOT NULL,
 	[Address] nvarchar(1000) NULL,
 	[Activated] bit NOT NULL,
@@ -45,7 +46,7 @@ CREATE TABLE [Order] (
 	[RequireDate] datetime NOT NULL,
 	[OrderDate] datetime NOT NULL,
 	[Description] nvarchar(max) NULL,
-	[Status] bit DEFAULT(1)NOT NULL,
+	[Status] bit NOT NULL,
 	CONSTRAINT [PK_Order] PRIMARY KEY ([OrderID]),
 	CONSTRAINT [FK_Order_Customer_CustomerID] FOREIGN KEY ([CustomerID]) REFERENCES [Customer] ([CustomerID]) ON DELETE CASCADE
 );
@@ -69,26 +70,26 @@ VALUES ('DELL','dell'), ('ASUS','asus'), ('SONY','sony'), ('ACER','acer'), ('HP'
 GO
 
 INSERT INTO [Product] (CateID, Name, Price, Image, Description, Quantity, Discount, Status)
-VALUES ('2', 'ASUS-1','15000000', 'asus1.jpg', 'Laptop ASUS-1', '10', '0.1', '1'),
-		('2', 'ASUS-2','14000000', 'asus2.jpg', 'Laptop ASUS-2', '15', '0.05', '0'),
-		('1', 'DELL-1','13600000', 'dell1.jpg', 'Laptop DELL-1', '10', '0.05', '1'),
-		('1', 'DELL-2','12300000', 'dell2.jpg', 'Laptop DELL-2', '21', '0.05', '0'),
-		('3', 'SONY-1','17600000', 'sony1.jpg', 'Laptop SONY-1', '22', '0.02', '1'),
-		('3', 'SONY-2','1930000', 'sony2.jpg', 'Laptop SONY-2', '30', '0.02', '1'),
-		('5', 'HP-1','9500000', 'hp1.jpg', 'Laptop HP-1', '23', '0.15', '0'),
-		('5', 'HP-2','10500000', 'hp2.jpg', 'Laptop HP-2', '14', '0.15', '1'),
-		('4', 'ACER-1','11450000', 'acer1.jpg', 'Laptop ACER-1', '6', '0.08', '1'),
-		('4', 'ACER-2','10870000', 'acer2.jpg', 'Laptop ACER-2', '12', '0.08', '0'),
-		('1', 'DELL-3','14590000', 'dell3.jpg', 'Laptop DELL-3', '5', '0.05', '0'),
-		('1', 'DELL-4','15670000', 'dell4.jpg', 'Laptop DELL-4', '18', '0.05', '1')
+VALUES ('2', 'Asus Vivobook 14 X405UA-BV327T','15000000', 'asus1.jpg', 'Laptop ASUS-1', '10', '0.1', '1'),
+		('2', 'Asus ZenBook UX430UA-GV261T','14000000', 'asus2.jpg', 'Laptop ASUS-2', '15', '0.05', '0'),
+		('1', 'Dell Vostro 7570-70138565','13600000', 'dell1.jpg', 'Laptop DELL-1', '10', '0.05', '1'),
+		('1', 'Dell Inspiron 3467-M20NR11','12300000', 'dell2.jpg', 'Laptop DELL-2', '21', '0.05', '0'),
+		('3', 'Sony VAIO SVF1521BYA','17600000', 'sony1.jpg', 'Laptop SONY-1', '22', '0.02', '1'),
+		('3', 'Sony VAIO VPC-W111XX','1930000', 'sony2.jpg', 'Laptop SONY-2', '30', '0.02', '1'),
+		('5', 'HP Pavilion 14-ab117TU','9500000', 'hp1.jpg', 'Laptop HP-1', '23', '0.15', '0'),
+		('5', 'HP Probook 450 G3-T1A15PA','10500000', 'hp2.jpg', 'Laptop HP-2', '14', '0.15', '1'),
+		('4', 'Acer AS E5-575G-73DR','11450000', 'acer1.jpg', 'Laptop ACER-1', '6', '0.08', '1'),
+		('4', 'Acer E5-473-58U5','10870000', 'acer2.jpg', 'Laptop ACER-2', '12', '0.08', '0'),
+		('1', 'Dell Latitude 5480-70127518','14590000', 'dell3.jpg', 'Laptop DELL-3', '5', '0.05', '0'),
+		('1', 'Dell Inspiron 5379-JYN0N1','15670000', 'dell4.jpg', 'Laptop DELL-4', '18', '0.05', '1')
 GO
 
-INSERT INTO [Customer] (CustomerID, Password,Fullname, Address, Activated)
-VALUES ('CUS001', 'abc123','Le Thi Xuan', '119/34A Tran Hoan Street District 3 HCMC', '1'),
-		('CUS002', 'abc456','Tran Hung Toan', '34Bis Nguyen Van Loi Street District HCMC', '0'),
-		('CUS003', 'abc789','Le Huy', '18/8H Tran Ke Xuong Street Phu Nhuan District HCMC', '1'),
-		('CUS004', 'def123','Dang Hoang Nhan', '45/9 Le Loi Street District 1 HCMC', '0'),
-		('CUS005', 'def45', 'Le Viet Khanh', '23B Nguyen Van Nghi Street Go Vap District HCMC', '1')
+INSERT INTO [Customer] (CustomerID, Email, Password, Fullname, Address, Activated)
+VALUES ('CUS001', 'Xuan123@gmail.com', 'abc123','Le Thi Xuan', '119/34A Tran Hoan Street District 3 HCMC', '1'),
+		('CUS002', 'Toan123@yahoo.com', 'abc456','Tran Hung Toan', '34Bis Nguyen Van Loi Street District HCMC', '0'),
+		('CUS003', 'Huy123@gmail.com', 'abc789','Le Huy', '18/8H Tran Ke Xuong Street Phu Nhuan District HCMC', '1'),
+		('CUS004', 'Nhan123@gmail.com', 'def123','Dang Hoang Nhan', '45/9 Le Loi Street District 1 HCMC', '0'),
+		('CUS005', 'Khanh123@yahoo.com', 'def45', 'Le Viet Khanh', '23B Nguyen Van Nghi Street Go Vap District HCMC', '1')
 GO
 
 INSERT INTO[Order] (CustomerID, Address, Amount, RequireDate, OrderDate, Description, Status)
