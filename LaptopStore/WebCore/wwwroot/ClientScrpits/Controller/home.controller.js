@@ -31,6 +31,7 @@
                 step: 1000000
             }
         };
+        vm.sort = {}
 
         
         vm.openProductDetail = openProductDetail;
