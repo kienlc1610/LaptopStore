@@ -18,10 +18,6 @@ namespace WebAPI.Controllers
     {
         private readonly LaptopStoreContext _context;
 
-        public CategoriesController()
-        {
-        }
-
         public CategoriesController(LaptopStoreContext context)
         {
             _context = context;
@@ -29,7 +25,7 @@ namespace WebAPI.Controllers
 
         // GET: api/Categories
         [HttpGet]
-        public IEnumerable<Category> GetCategory()
+        public IEnumerable<Category> GetCategories()
         {
             return _context.Category;
         }
