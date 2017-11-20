@@ -42,8 +42,13 @@
                 Description: product.description,
                 Quantity: product.quantity,
                 Discount: product.discount,
-                Status: product.status,
             };
+
+            if (product.status == 'true') {
+                obj.Status = true;
+            } else {
+                obj.Status = false;
+            }
 
             AdminService.createProduct(obj)
                 .then(function (res) {
@@ -53,7 +58,7 @@
                 })
                 .catch(function (err) {
                     toastr.error("Error:" + JSON.stringify(err));
-                })
+                });
         }
     }
 })();

@@ -3,38 +3,39 @@
 
     angular
         .module('AdminApp')
-        .controller('AdminCategoryController', AdminProductController);
+        .controller('AdminOrderController', AdminOrderController);
 
-    AdminProductController.$inject = ['$location', 'AdminService', 'toastr', '$scope', '$uibModal'];
+    AdminOrderController.$inject = ['$location', 'AdminService', 'toastr', '$scope', '$uibModal'];
 
-    function AdminProductController($location, AdminService, toastr, $scope, $uibModal) {
+    function AdminOrderController($location, AdminService, toastr, $scope, $uibModal) {
         /* jshint validthis:true */
         var vm = $scope;
 
-        vm.deleteCategory = deleteCategory;
+        vm.deleteOrder = deleteOrder;
+
         vm.openModal = openModal;
         vm.close = close;
 
         activate();
 
         function activate() {
-            getAllCategory();
+            getAllOrders();
         }
 
-        function getAllCategory() {
-            AdminService.getAllCategories()
-                .then(function (category) {
-                    vm.categories = category;
+        function getAllOrders() {
+            AdminService.getAllOrders()
+                .then(function (orders) {
+                    vm.orders = orders;
                 })
                 .catch(function (err) {
                     toastr.error('Error:' + JSON.stringify(err));
                 });
         }
 
-        function deleteCategory(id) {
-            AdminService.deleteCategory(id)
+        function deleteOrder(id) {
+            AdminService.deleteOrder(id)
                 .then(function (products) {
-                    toastr.success("Category " + id + " is deleted!");
+                    toastr.success("Order " + id + " is deleted!");
                     vm.modalInstance.close('deleted');
                 })
                 .catch(function (err) {
@@ -42,12 +43,12 @@
                 });
         }
 
-        function openModal(category) {
-            vm.categoryPopup = category;
+        function openModal(order) {
+            vm.orderPopup = order;
 
             vm.modalInstance = $uibModal.open({
                 templateUrl: 'myModalContent.html',
-                controller: 'AdminCategoryController',
+                controller: 'AdminOrderController',
                 scope: vm
             });
 

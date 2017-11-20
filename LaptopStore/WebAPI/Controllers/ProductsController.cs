@@ -124,26 +124,14 @@ namespace WebAPI.Controllers
         // POST: api/Products
         [HttpPost]
         [Route("Create")]
-        public JsonResult PostProduct([FromBody] ProductViewModel viewModel)
+        public async Task<JsonResult> PostProductAsync([FromBody] Product product)
         {
-            Product product = new Product()
-            {
-                Name = viewModel.Name,
-                Price = viewModel.Price,
-                Description = viewModel.Description,
-                CateId = viewModel.CateId,
-                Discount = viewModel.Discount,
-                Image = viewModel.Image,
-                Quantity = viewModel.Quantity,
-                Status = viewModel.Status
-            };
-
             var prodt = _context.Product.Find(product.ProductId);
             if (prodt != null)
             {
                 throw new Exception("Exist ProductId the same!");
             }
-            _context.Product.Add(product);
+            await _context.Product.AddAsync(product);
             _context.SaveChanges();
             return Json(true);
         }

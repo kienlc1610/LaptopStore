@@ -115,7 +115,22 @@ namespace WebAPI.Controllers
             _context.Order.Remove(order);
             await _context.SaveChangesAsync();
 
-            return Ok(order);
+            return RedirectToAction("DeleteOrderDetailsByOrderId", "OrderDetails", new { id = id});
+        }
+
+        // GET: api/Orders/5/OrderDetails
+        [HttpGet]
+        [Route("{id}/OrderDetails")]
+        public async Task<IActionResult> GetDetailOfOrder([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var orderDetail = await _context.OrderDetail.Where(p => p.OrderId == id).ToListAsync();
+
+            return Ok(orderDetail);
         }
 
         private bool OrderExists(int id)

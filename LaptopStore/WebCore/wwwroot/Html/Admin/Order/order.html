@@ -1,6 +1,6 @@
 ﻿<div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">Category</h1>
+        <h1 class="page-header">Order</h1>
     </div>
     <!-- /.col-lg-12 -->
 </div>
@@ -9,8 +9,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Categories Table
-                <a class="pull-right btn btn-default btn-sm" href="/Admin/#!/create/category">Create</a>
+                Order Table
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -23,7 +22,7 @@
                                 <th>
                                     Address
                                 </th>
-                                <th>Amount</th>
+                                <th>Amount Of Products In Order</th>
                                 <th>Customer Id</th>
                                 <th>Description</th>
                                 <th>
@@ -39,12 +38,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="category in categories">
-                                <td><a ng-href="/Admin/#!/categories/{{category.cateId}}">{{category.cateId}}</a></td>
-                                <td>{{category.alias}}</td>
-                                <td><a ng-href="/Admin/#!/categories/{{category.cateId}}">{{category.name}}</a></td>
-                                <td><button class="btn btn-danger" ng-click="deleteCategory(category.cateId)">Delete</button></td>
-                                </tr>
+                            <tr ng-repeat="order in orders">
+                                <td><a ng-href="/Admin/#!/orders/{{order.orderId}}">{{order.orderId}}</a></td>
+                                <td>{{order.address}}</td>
+                                <td>{{order.amount}}</td>
+                                <td>{{order.customerId}}</td>
+                                <td>{{order.description}}</td>
+                                <td>{{order.orderDate}}</td>
+                                <td>{{order.requireDate}}</td>
+                                <td>{{order.status}}</td>
+                                <td><button class="btn btn-danger" ng-click="openModal(order)">Delete</button></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -55,4 +59,18 @@
         <!-- /.panel -->
     </div>
     <!-- /.col-lg-12 -->
+
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Confirm Delete</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <p>Do you sure delete order {{orderPopup.orderId}} ?</p>
+            <p>This will delete permanently in database</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="deleteOrder(orderPopup.orderId)">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="close()">Cancel</button>
+        </div>
+    </script>
 </div>

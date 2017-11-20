@@ -4,7 +4,8 @@
     var app = angular.module('AdminApp', [
         // Angular modules 
         'ngRoute',
-        'toastr'
+        'toastr',
+        'ui.bootstrap'
 
         // Custom modules 
 
@@ -37,6 +38,18 @@
             .when('/create/category', {
                 templateUrl: '/Html/Admin/Category/category-create.html',
                 controller: 'AdminCategoryCreate'
+            })
+            .when('/orders', {
+                templateUrl: '/Html/Admin/Order/order.html',
+                controller: 'AdminOrderController'
+            })
+            .when('/orders/:id', {
+                templateUrl: '/Html/Admin/Order/order-detail.html',
+                controller: 'AdminOrderDetail'
+            })
+            .when('/create/order', {
+                templateUrl: '/Html/Admin/Order/order-create.html',
+                controller: 'AdminOrderCreate'
             })
             .otherwise({
                 redirectTo: '/'

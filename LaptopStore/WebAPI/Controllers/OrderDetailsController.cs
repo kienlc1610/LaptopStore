@@ -106,6 +106,29 @@ namespace WebAPI.Controllers
             return CreatedAtAction("GetOrderDetail", new { id = oderDetail.Id }, oderDetail);
         }
 
+        public async Task<IActionResult> DeleteOrderDetailsByOrderId([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var orderDetails = await _context.OrderDetail.Where(m => m.OrderId == id).ToListAsync();
+            if (orderDetails == null)
+            {
+                return NotFound();
+            }
+
+           for(int i = 0; i < orderDetails.Count; i ++)
+            {
+                _context.OrderDetail.Remove(orderDetails[i]);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Ok(orderDetails);
+        }
+
         // DELETE: api/OrderDetails/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrderDetail([FromRoute] int id)
@@ -122,6 +145,7 @@ namespace WebAPI.Controllers
             }
 
             _context.OrderDetail.Remove(orderDetail);
+
             await _context.SaveChangesAsync();
 
             return Ok(orderDetail);

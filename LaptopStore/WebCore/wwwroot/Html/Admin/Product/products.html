@@ -52,7 +52,7 @@
                                 <td>{{product.quantity}}</td>
                                 <td>{{product.description}}</td>
                                 <td>{{product.status}}</td>
-                                <td><button class="btn btn-danger" ng-click="deleteProduct(product.productId)">Delete</button></td>
+                                <td><button class="btn btn-danger" ng-click="openModal(product)">Delete</button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -64,4 +64,18 @@
         <!-- /.panel -->
     </div>
     <!-- /.col-lg-12 -->
+
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Confirm Delete</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <p>Do you sure delete product {{productPopup.productId}} ?</p>
+            <p>This will delete permanently in database</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="deleteProduct(productPopup.productId)">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="close()">Cancel</button>
+        </div>
+    </script>
 </div>

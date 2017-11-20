@@ -21,7 +21,11 @@
             createOrderDetail: createOrderDetail,
             getCategoryDetail: getCategoryDetail,
             updateCategory: updateCategory,
-            createCategory: createCategory
+            createCategory: createCategory,
+            getAllOrders: getAllOrders,
+            deleteOrder: deleteOrder,
+            getDetailOfOrder: getDetailOfOrder,
+            deleteOrderDetail: deleteOrderDetail
         };
 
         return service;
@@ -200,6 +204,62 @@
             var deferred = $q.defer();
 
             $http.post('http://localhost:49595/api/Categories/Create', category)
+                .then(function (res) {
+                    deferred.resolve(res.data);
+                })
+                .catch(function (err) {
+                    deferred.reject(err);
+                });
+
+            return deferred.promise;
+        }
+
+        function getAllOrders() {
+            var deferred = $q.defer();
+
+            $http.get('http://localhost:49595/api/Orders')
+                .then(function (res) {
+                    deferred.resolve(res.data);
+                })
+                .catch(function (err) {
+                    deferred.reject(err);
+                });
+
+            return deferred.promise;
+        }
+
+        function deleteOrder(id) {
+            var deferred = $q.defer();
+
+            $http.delete('http://localhost:49595/api/Orders/' + id)
+                .then(function (res) {
+                    deferred.resolve(res.data);
+                })
+                .catch(function (err) {
+                    deferred.reject(err);
+                });
+
+            return deferred.promise;
+        }
+
+        function getDetailOfOrder(id) {
+            var deferred = $q.defer();
+
+            $http.get('http://localhost:49595/api/Orders/' + id + '/OrderDetails')
+                .then(function (res) {
+                    deferred.resolve(res.data);
+                })
+                .catch(function (err) {
+                    deferred.reject(err);
+                });
+
+            return deferred.promise;
+        }
+
+        function deleteOrderDetail(id) {
+            var deferred = $q.defer();
+
+            $http.delete('http://localhost:49595/api/OrderDetails/' + id)
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })

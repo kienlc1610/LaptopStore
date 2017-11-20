@@ -28,6 +28,8 @@ namespace WebAPI.Models
         [Range(0, double.MaxValue, ErrorMessage = "Please enter valid Double Number")]
         public double Price { get; set; }
 
+        [Display(Name = "Image")]
+        [DataType(DataType.Text)]
         public string Image { get; set; }
 
         [StringLength(150)]

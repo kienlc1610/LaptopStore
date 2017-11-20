@@ -34,7 +34,7 @@
                                 <td><a ng-href="/Admin/#!/categories/{{category.cateId}}">{{category.cateId}}</a></td>
                                 <td>{{category.alias}}</td>
                                 <td><a ng-href="/Admin/#!/categories/{{category.cateId}}">{{category.name}}</a></td>
-                                <td><button class="btn btn-danger" ng-click="deleteCategory(category.cateId)">Delete</button></td>
+                                <td><button class="btn btn-danger" ng-click="openModal(category);">Delete</button></td>
                                 </tr>
                         </tbody>
                     </table>
@@ -46,4 +46,19 @@
         <!-- /.panel -->
     </div>
     <!-- /.col-lg-12 -->
+
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Confirm Delete</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <p>Do you sure delete category {{categoryPopup.name}} ?</p>
+            <p>This will delete permanently in database</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="deleteCategory(categoryPopup.cateId)">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="close()">Cancel</button>
+        </div>
+    </script>
 </div>
+
