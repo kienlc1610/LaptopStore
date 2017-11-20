@@ -13,6 +13,7 @@
         var rootScope = $rootScope;
 
         var productId = $routeParams.id;
+        vm.quantityOfProductAddToCart = 1;
         vm.addCart = addCart;
 
         activate();

@@ -30,7 +30,7 @@
                 })
                 .catch(function (err) {
                     toastr.error("Error:" + JSON.stringify(err));
-                })
+                });
         }
     }
 })();
