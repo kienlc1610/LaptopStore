@@ -36,6 +36,7 @@
         vm.openProductDetail = openProductDetail;
         vm.addCart = addCart;
         vm.getProductByCategory = getProductByCategory;
+        vm.searchProduct = searchProduct;
 
         activate();
 
@@ -172,6 +173,20 @@
                 
             }
             ngStorageService.setSessionStorage('carts', productInCart);
+        }
+
+        function searchProduct(searchText) {
+            if (searchText) {
+                HomeService.searchProductByName(searchText)
+                    .then(function (res) {
+                        vm.products = res;
+                    })
+                    .catch(function (err) {
+                        console.log(err);
+                    });
+            } else {
+                getAllProducts();
+            }
         }
 
         

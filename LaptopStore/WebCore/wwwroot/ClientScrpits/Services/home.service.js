@@ -18,7 +18,8 @@
             getMaxPriceOfProduct: getMaxPriceOfProduct,
             createCustomer: createCustomer,
             createOrder: createOrder,
-            createOrderDetail: createOrderDetail
+            createOrderDetail: createOrderDetail,
+            searchProductByName: searchProductByName
         };
 
         return service;
@@ -177,6 +178,20 @@
             var deferred = $q.defer();
 
             $http.post('http://localhost:49595/api/OrderDetails', orderDetail)
+                .then(function (res) {
+                    deferred.resolve(res.data);
+                })
+                .catch(function (err) {
+                    deferred.reject(err);
+                });
+
+            return deferred.promise;
+        }
+
+        function searchProductByName(text) {
+            var deferred = $q.defer();
+
+            $http.get('http://localhost:49595/api/Products/Search/' + '?productName=' + text)
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })
