@@ -32,9 +32,16 @@ namespace WebCore
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+            // Configure Auth
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(
+                    "Administrations",
+                    authBuilder =>
+                    {
+                        authBuilder.RequireClaim("Admin", "Allowed");
+                    });
+            });
 
             // Add application services.
             //services.AddTransient<IEmailSender, EmailSender>();

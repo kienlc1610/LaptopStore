@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Net;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace WebAPI.Controllers
 {
@@ -131,6 +135,7 @@ namespace WebAPI.Controllers
 
         // DELETE: api/OrderDetails/5
         [HttpDelete("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme + ", " + CookieAuthenticationDefaults.AuthenticationScheme, Policy = "Administrations")]
         public async Task<IActionResult> DeleteOrderDetail([FromRoute] int id)
         {
             if (!ModelState.IsValid)

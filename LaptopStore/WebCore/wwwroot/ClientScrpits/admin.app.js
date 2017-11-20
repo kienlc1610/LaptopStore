@@ -5,7 +5,8 @@
         // Angular modules 
         'ngRoute',
         'toastr',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'ngStorage'
 
         // Custom modules 
 
@@ -55,4 +56,44 @@
                 redirectTo: '/'
             });
     }]);
+
+    app.run(['$localStorage', '$rootScope', '$http', '$window', function ($localStorage, $rootScope, $http, $window) {
+        var rvm = $rootScope;
+        rvm.logout = logout;
+
+        try {
+            rvm.user = JSON.parse($localStorage['user']);
+        } catch (err) {
+            rvm.user = $localStorage['user'];
+        }
+        console.log(rvm.user);
+
+        if (rvm.user) {
+
+            if (rvm.user.isadmin === false) {
+                $window.location.href = '/';
+            } else {
+                $http.defaults.headers.common.Authorization = 'Bearer ' + rvm.user.token;
+            }
+        } else {
+            $window.location.href = '/Account/Login';
+        }
+
+        function logout() {
+            $http.get('http://localhost:49595/api/Account/Logout', { headers: { Authorization: 'Bearer ' + rvm.user.token } })
+                .then(function (res) {
+                    rvm.user = null;
+
+                    $localStorage.$reset();
+
+                    $window.location.href = '/Account/Login';
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        };
+
+    }]);
+
+
 })();

@@ -41,12 +41,17 @@
             });
     }]);
 
-    app.run(['NgStorageService', '$rootScope', function (ngStorageService, $rootScope) {
-        $rootScope.user = ngStorageService.getSessionStorage('user');
+    app.run(['NgStorageService', '$rootScope', '$http', function (ngStorageService, $rootScope, $http) {
+        $rootScope.user = ngStorageService.getLocalStorage('user');
         console.log($rootScope.user);
         $rootScope.carts = {};
 
         $rootScope.removeProductFromCart = removeProductFromCart;
+        $rootScope.logout = logout;
+
+        if ($rootScope.user) {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $rootScope.user.token;
+        }
 
         $rootScope.$watchCollection('carts.products', function (newValue, oldValue) {
             var total = 0;
@@ -77,6 +82,18 @@
             $rootScope.carts.products.splice(index, 1);
             ngStorageService.setSessionStorage('carts', productsInCart);
         }
+
+        function logout() {
+            $http.get('http://localhost:49595/api/Account/Logout', { headers: { Authorization: 'Bearer ' + $rootScope.user.token } })
+                .then(function (res) {
+                    $rootScope.user = null;
+
+                    ngStorageService.resetLocalStorage();
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        };
 
         var foundCarts = ngStorageService.getSessionStorage('carts');
         if (!angular.isUndefined(foundCarts)) {

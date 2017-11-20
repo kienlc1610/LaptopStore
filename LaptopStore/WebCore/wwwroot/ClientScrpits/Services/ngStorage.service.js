@@ -13,7 +13,8 @@
             setSessionStorage: setSessionStorage,
             setLocalStorage: setLocalStorage,
             getSessionStorage: getSessionStorage,
-            getLocalStorage: getLocalStorage
+            getLocalStorage: getLocalStorage,
+            resetLocalStorage: resetLocalStorage
         };
 
         return service;
@@ -30,7 +31,7 @@
             if (angular.isObject(value)) {
                 $localStorage[key] = JSON.stringify(value);
             } else {
-                $localStorage[key] = value
+                $localStorage[key] = value;
             }
         }
 
@@ -44,10 +45,14 @@
 
         function getLocalStorage(key) {
             try {
-                return JSON.parse($localStorage[key])
+                return JSON.parse($localStorage[key]);
             } catch(err) {
                 return $localStorage[key];
             }
+        }
+
+        function resetLocalStorage() {
+            $localStorage.$reset();
         }
     }
 })();

@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using WebAPI.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace WebAPI.Controllers
 {
@@ -82,7 +84,7 @@ namespace WebAPI.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest();
-            }
+            } 
             else
             {
                 try
@@ -158,6 +160,24 @@ namespace WebAPI.Controllers
                     return StatusCode((int)HttpStatusCode.InternalServerError, $"Error when creating token: {e}");
                 }
 
+            }
+        }
+
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme + ", " + CookieAuthenticationDefaults.AuthenticationScheme)]
+        [Route("Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return BadRequest();
+            } else
+            {
+                var userName = HttpContext.User.Identity.Name;
+
+                await _signInManager.SignOutAsync();
+
+                return Ok();
             }
         }
     }

@@ -5,9 +5,9 @@
         .module('LoginApp')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$location', '$scope', 'AccountService', 'toastr', 'NgStorageService', '$window','$rootScope'];
+    LoginController.$inject = ['$location', '$scope', 'AccountService', 'toastr', '$localStorage', '$window','$rootScope'];
 
-    function LoginController($location, $scope, AccountService, toastr, NgStorageService, $window, $rootScope) {
+    function LoginController($location, $scope, AccountService, toastr, $localStorage, $window, $rootScope) {
         /* jshint validthis:true */
         var vm = $scope;
         var rvm = $rootScope;
@@ -17,7 +17,7 @@
         activate();
 
         function activate() {
-            if (NgStorageService.getSessionStorage("user") || rvm.user) {
+            if ($localStorage['user'] || rvm.user) {
                 $window.location.href = '/';
             }
         }
@@ -33,7 +33,7 @@
                     .then(function (res) {
                         toastr.success('Login Successfully!');
                         var user = res;
-                        NgStorageService.setSessionStorage('user', res);
+                        $localStorage['user'] = JSON.stringify(res);
                         if (user.isadmin) {
                             $window.location.href = '/Admin/Home';
 
