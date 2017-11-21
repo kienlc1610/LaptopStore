@@ -6,7 +6,8 @@
         'ngRoute',
         'toastr',
         'ui.bootstrap',
-        'ngStorage'
+        'ngStorage',
+        'ngFileUpload'
 
         // Custom modules 
 

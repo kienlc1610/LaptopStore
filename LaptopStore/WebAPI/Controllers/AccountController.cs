@@ -173,7 +173,7 @@ namespace WebAPI.Controllers
                 return BadRequest();
             } else
             {
-                var userName = HttpContext.User.Identity.Name;
+                //var userName = HttpContext.User.Identity.Name;
 
                 await _signInManager.SignOutAsync();
 
