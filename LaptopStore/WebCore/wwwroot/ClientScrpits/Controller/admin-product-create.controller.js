@@ -53,7 +53,7 @@
             AdminService.createProduct(obj)
                 .then(function (res) {
                     toastr.success("Create Product Successfully!");
-                    $location.path('/#!/products');
+                    $location.path('/products');
                     $location.replace();
                 })
                 .catch(function (err) {
