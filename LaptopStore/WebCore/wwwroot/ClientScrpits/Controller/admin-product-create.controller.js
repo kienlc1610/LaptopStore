@@ -33,6 +33,7 @@
                 })
                 .catch(function (err) {
                     toastr.error("Error:" + JSON.stringify(err));
+                    console.log(err);
                 });
 
         }
@@ -65,11 +66,13 @@
                         })
                         .catch(function (err) {
                             toastr.error("Error:" + JSON.stringify(err));
+                            console.log(err);
                         });
                 })
                 .catch(function (err) {
                     if (err.status > 0) {
                         toastr.error(err.status + ': ' + err.data);
+                        console.log(err);
                     }
                 });
 

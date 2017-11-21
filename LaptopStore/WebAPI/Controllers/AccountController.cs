@@ -48,7 +48,7 @@ namespace WebAPI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
             var user = new UserEntity()
@@ -83,7 +83,7 @@ namespace WebAPI.Controllers
 
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             } 
             else
             {
@@ -93,7 +93,7 @@ namespace WebAPI.Controllers
 
                     if (user == null)
                     {
-                        return BadRequest();
+                        return BadRequest("User not existed in system");
                     }
 
                     if (_passwordHasher.VerifyHashedPassword(user, user.PasswordHash, model.Password) == PasswordVerificationResult.Success)
@@ -151,7 +151,7 @@ namespace WebAPI.Controllers
                     }
                     else
                     {
-                        return Unauthorized();
+                        return BadRequest(ModelState);
                     }
                 }
                 catch (Exception e)
@@ -177,7 +177,7 @@ namespace WebAPI.Controllers
 
                 await _signInManager.SignOutAsync();
 
-                return Ok();
+                return Ok("Logout successfully!");
             }
         }
     }
