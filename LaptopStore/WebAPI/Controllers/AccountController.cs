@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using WebAPI.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace WebAPI.Controllers
 {
@@ -46,7 +48,7 @@ namespace WebAPI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
             var user = new UserEntity()
@@ -81,8 +83,8 @@ namespace WebAPI.Controllers
 
             if (!ModelState.IsValid)
             {
-                return BadRequest();
-            }
+                return BadRequest(ModelState);
+            } 
             else
             {
                 try
@@ -91,7 +93,7 @@ namespace WebAPI.Controllers
 
                     if (user == null)
                     {
-                        return BadRequest();
+                        return BadRequest("User not existed in system");
                     }
 
                     if (_passwordHasher.VerifyHashedPassword(user, user.PasswordHash, model.Password) == PasswordVerificationResult.Success)
@@ -149,7 +151,7 @@ namespace WebAPI.Controllers
                     }
                     else
                     {
-                        return Unauthorized();
+                        return BadRequest(ModelState);
                     }
                 }
                 catch (Exception e)
@@ -158,6 +160,24 @@ namespace WebAPI.Controllers
                     return StatusCode((int)HttpStatusCode.InternalServerError, $"Error when creating token: {e}");
                 }
 
+            }
+        }
+
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme + ", " + CookieAuthenticationDefaults.AuthenticationScheme)]
+        [Route("Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return BadRequest();
+            } else
+            {
+                //var userName = HttpContext.User.Identity.Name;
+
+                await _signInManager.SignOutAsync();
+
+                return Ok("Logout successfully!");
             }
         }
     }

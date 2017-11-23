@@ -93,13 +93,13 @@
                 <div class="pull-right">
                     
                     <label class="control-label">Sort&nbsp;By:</label>
-                    <select class="form-control input-sm" ng-model="sort">
-                        <option value="#?sort=p.sort_order&amp;order=ASC" selected="selected">Default</option>
+                    <select class="form-control input-sm">
+                        <option value="{prototyName: 'name', reverse : false}" selected="selected">Default</option>
                         <option value="#?sort=pd.name&amp;order=ASC">Name (A - Z)</option>
                         <option value="#?sort=pd.name&amp;order=DESC">Name (Z - A)</option>
                         <option value="#?sort=p.price&amp;order=ASC">Price (Low &gt; High)</option>
                         <option value="#?sort=p.price&amp;order=DESC" >Price (High &gt; Low)</option>
-                    </select>
+                    </select>                    
                 </div>
             </div>
         </div>
@@ -109,7 +109,7 @@
             <div dir-paginate="product in products|itemsPerPage:6" class="col-md-4 col-sm-6 col-xs-12">
                 <div class="product-item">
                     <div class="pi-img-wrapper">
-                        <img src="/img/products/{{product.image}}" class="img-responsive" alt="{{product.name}}">
+                        <img style="height:12em;"src="/img/products/{{product.image}}" class="img-responsive" alt="{{product.name}}">
                         <div>
                             <a fancyboxable="{padding:30}" id="image-{{productId}}"  data-ng-href="/img/products/{{product.image}}" class="btn btn-default">Zoom</a>
                             <a class="btn btn-default" ng-click="openProductDetail(product)">View</a>

@@ -8,9 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WebCore.Data;
 using WebCore.Models;
-using WebCore.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.Extensions.Logging;
@@ -30,12 +28,16 @@ namespace WebCore
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+            // Configure Auth
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(
+                    "Administrations",
+                    authBuilder =>
+                    {
+                        authBuilder.RequireClaim("Admin", "Allowed");
+                    });
+            });
 
             // Add application services.
             //services.AddTransient<IEmailSender, EmailSender>();

@@ -68,7 +68,18 @@
                     <ul class="list-unstyled list-inline pull-right">
                         <li data-ng-if="!user"><a href="/Account/Register">Register</a></li>
                         <li data-ng-if="!user"><a href="/Account/Login">Log In</a></li>
-                        <li data-ng-if="user">{{user.email}}</li>
+                        <li class="dropdown" data-ng-if="user">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+                                <i class="fa fa-user fa-fw"></i>{{user.email}} <i class="fa fa-caret-down"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="javascript:;" data-ng-click="logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                                </li>
+                            </ul>
+                            <!-- /.dropdown-user -->
+                        </li>
                     </ul>
                 </div>
                 <!-- END TOP BAR MENU -->

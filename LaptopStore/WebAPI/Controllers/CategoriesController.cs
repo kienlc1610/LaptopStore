@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Models;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace WebAPI.Controllers
 {
@@ -24,6 +27,7 @@ namespace WebAPI.Controllers
         }
 
         // GET: api/Categories
+        [AllowAnonymous]
         [HttpGet]
         public IEnumerable<Category> GetCategories()
         {
@@ -31,6 +35,7 @@ namespace WebAPI.Controllers
         }
 
         // GET: api/Categories/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCategory(int id)
         {
@@ -50,6 +55,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme + ", " + CookieAuthenticationDefaults.AuthenticationScheme, Policy = "Administrations")]
         [Route("Update")]
         public JsonResult Update([FromBody]Category category)
         {
@@ -70,6 +76,7 @@ namespace WebAPI.Controllers
 
         // POST: api/Categories
         [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme + ", " + CookieAuthenticationDefaults.AuthenticationScheme, Policy = "Administrations")]
         [Route("Create")]
         public JsonResult PostCategory( [FromBody]Category category)
         {
@@ -84,6 +91,7 @@ namespace WebAPI.Controllers
         }
 
         // DELETE: api/Categories/5
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme + ", " + CookieAuthenticationDefaults.AuthenticationScheme, Policy = "Administrations")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory([FromRoute] int id)
         {

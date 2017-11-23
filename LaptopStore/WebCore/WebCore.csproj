@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" PrivateAssets="All" />
   </ItemGroup>
@@ -23,14 +24,6 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="wwwroot\data\" />
     <Folder Include="wwwroot\Html\Admin\Product\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Areas\Admin\Views\Categories\Index.cshtml" />
-    <None Include="Areas\Admin\Views\Customers\Index.cshtml" />
-    <None Include="Areas\Admin\Views\OrderDetails\Index.cshtml" />
-    <None Include="Areas\Admin\Views\Orders\Index.cshtml" />
-    <None Include="Areas\Admin\Views\Products\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

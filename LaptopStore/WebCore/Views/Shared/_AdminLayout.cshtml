@@ -51,19 +51,13 @@
             <ul class="nav navbar-top-links navbar-right">
                 <!-- /.dropdown -->
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+                        <i class="fa fa-user fa-fw"></i> {{user.email}}<i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
+                        
                         <li>
-                            <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            <a href="javascript:;" data-ng-click="logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -107,6 +101,7 @@
     <script src="~/lib/angularUtils-pagination/dirPagination.js" type="text/javascript"></script>
     <script src="~/lib/ngstorage/ngStorage.min.js" type="text/javascript"></script>
     <script src="~/lib/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <script src="~/lib/ng-file-upload/ng-file-upload.min.js"></script>
 
 
     <script src="~/ClientScrpits/admin.app.js" type="text/javascript"></script>
