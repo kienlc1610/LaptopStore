@@ -131,7 +131,6 @@ namespace WebAPI
             app.UseAuthentication();
 
             InitData.InitializeLaptopStoreDatabaseAsync(app.ApplicationServices).Wait();
-            
 
             app.UseMvc();
         }
