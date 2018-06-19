@@ -11,6 +11,10 @@ bin-release/
 # should NOT be excluded as they contain compiler settings and other important
 # information for Eclipse / Flash Builder.
 
+LaptopStore/API/obj/
+
+LaptopStore/API/bin/
+
 LaptopStore/WebAPI/obj/
 
 LaptopStore/WebAPI/wwwroot/lib/
