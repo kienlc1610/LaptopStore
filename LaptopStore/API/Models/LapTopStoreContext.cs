@@ -8,17 +8,17 @@ namespace API.Models
 {
     public class NguoiDungEntity : IdentityUser
     {
-        public string FristName { get; set; }
-        public string LastName { get; set; }
-        public string DisplayName
+        public string Ho { get; set; }
+        public string Ten { get; set; }
+        public string TenHienThi
         {
             get
             {
-                return this.FristName + " " + this.LastName;
+                return this.Ho + " " + this.Ten;
             }
         }
 
-        public string Address { get; set; }
+        public string DiaChi { get; set; }
 
     }
     public partial class LapTopStoreContext : IdentityDbContext<NguoiDungEntity>
